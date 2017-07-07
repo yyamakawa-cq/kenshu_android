@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Kenshu</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="app_name">書籍管理</string>
+    <string name="title_list">書籍一覧</string>
+    <string name="title_setting">設定</string>
 </resources>
