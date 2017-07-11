@@ -2,4 +2,5 @@
     <string name="app_name">書籍管理</string>
     <string name="title_list">書籍一覧</string>
     <string name="title_setting">設定</string>
+    <string name="title_account">アカウント設定</string>
 </resources>
