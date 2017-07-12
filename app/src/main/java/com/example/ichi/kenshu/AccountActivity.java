@@ -19,9 +19,9 @@ public class AccountActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.action_menu, menu);
         this.actionMenu = menu;
-        actionMenu.getItem(0).setVisible(false);
-        actionMenu.getItem(1).setVisible(true);
-        actionMenu.getItem(2).setVisible(true);
+        actionMenu.getItem(0).setVisible(false);//追加:非表示
+        actionMenu.getItem(1).setVisible(true);//保存:表示
+        actionMenu.getItem(2).setVisible(true);//閉じる:表示
         return true;
     }
     @Override

@@ -8,7 +8,6 @@
         android:title="@string/menu_add"
         android:visible="true"
         app:showAsAction="ifRoom" />
-
     <item
         android:id="@+id/menu_saveBook"
         android:enabled="true"
@@ -20,6 +19,13 @@
         android:enabled="true"
         android:icon="@drawable/ic_close_black_24dp"
         android:title="@string/menu_close"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_back"
+        android:enabled="true"
+        android:icon="@drawable/ic_keyboard_return_black_24dp"
+        android:title="@string/menu_back"
         android:visible="false"
         app:showAsAction="ifRoom" />
 

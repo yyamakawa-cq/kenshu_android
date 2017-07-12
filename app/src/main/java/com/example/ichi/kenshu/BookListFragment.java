@@ -1,12 +1,13 @@
 package com.example.ichi.kenshu;
 
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class BookListFragment extends Fragment {
 
+    private MainActivity parent;
 
     public BookListFragment() {}
 
@@ -43,13 +45,33 @@ public class BookListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ListView listView = (ListView) parent;
-                CustomBookListItem item = (CustomBookListItem) listView.getItemAtPosition(position);
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("Tap No." + String.valueOf(position));
-                builder.setMessage(item.getTitle());
-                builder.show();
+                EditBookFragment editBookFragment = new EditBookFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("selected", position);
+                editBookFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.content, editBookFragment);
+
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (parent.actionMenu != null) {
+            parent.actionMenu.getItem(0).setVisible(true);//追加:表示
+            parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
+            parent.actionMenu.getItem(3).setVisible(false);//戻る:非表示
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        parent = (MainActivity) context;
+        super.onAttach(context);
     }
 }

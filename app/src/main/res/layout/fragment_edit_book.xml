@@ -1,0 +1,12 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/background_light"
+    tools:context="com.example.ichi.kenshu.EditBookFragment">
+
+    <include
+        layout="@layout/include_book_form"
+        android:id="@+id/include_view"/>
+
+</FrameLayout>

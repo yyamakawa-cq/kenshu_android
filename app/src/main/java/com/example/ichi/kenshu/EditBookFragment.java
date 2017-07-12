@@ -8,34 +8,39 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
-public class SettingFragment extends Fragment {
+public class EditBookFragment extends Fragment {
 
     private MainActivity parent;
 
-    public SettingFragment() {
-    }
+    public EditBookFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_setting, container, false);
+        return inflater.inflate(R.layout.fragment_edit_book, container, false);
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        Button button = getActivity().findViewById(R.id.button_goToAccount);
+        Button button = getActivity().findViewById(R.id.button_upload);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                parent.moveToAccountActivity();
+                parent.pickImageView();
             }
         });
 
+        if (parent.imageViewUpload != null) {
+            ImageView imageViewUpload = getActivity().findViewById(R.id.imageView_upload);
+            imageViewUpload.setImageBitmap(parent.imageViewUpload);
+        }
+
         parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
-        parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
-        parent.actionMenu.getItem(3).setVisible(false);//戻る:非表示
+        parent.actionMenu.getItem(1).setVisible(true);//保存:表示
+        parent.actionMenu.getItem(3).setVisible(true);//戻る:表示
     }
 
     @Override
