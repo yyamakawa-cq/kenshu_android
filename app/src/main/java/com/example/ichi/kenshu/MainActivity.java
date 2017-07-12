@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_bookAdd:
+            case R.id.menu_addBook:
                 Intent intent = new Intent(this, AddBookActivity.class);
                 startActivity(intent);
                 return true;
