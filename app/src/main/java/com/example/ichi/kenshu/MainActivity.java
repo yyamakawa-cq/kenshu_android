@@ -8,11 +8,9 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.AppLaunchChecker;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -60,14 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
-        if (AppLaunchChecker.hasStartedFromLauncher(this)) {
-            Log.d("AppLaunchChecker", "2回目以降起動");
-        } else {
-            Log.d("AppLaunchChecker", "初回起動");
-            moveToAccountActivity();
-        }
-        AppLaunchChecker.onActivityCreate(this);
     }
 
     @Override
@@ -82,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_addBook:
-                Intent intent = new Intent(this, AddBookActivity.class);
+                Intent intent = new Intent(getApplication(), AddBookActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.menu_back:
@@ -99,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void moveToAccountActivity() {
-        Intent intent = new Intent(this, AccountActivity.class);
+        Intent intent = new Intent(getApplication(), AccountActivity.class);
         startActivity(intent);
     }
 

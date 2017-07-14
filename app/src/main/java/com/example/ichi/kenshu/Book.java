@@ -2,15 +2,15 @@ package com.example.ichi.kenshu;
 
 import android.graphics.Bitmap;
 
-public class CustomBookListItem {
+public class Book {
     private Bitmap mImageView = null;
     private String mTitle = null;
     private String mPrice = null;
     private String mPurchaseDate = null;
 
-    public CustomBookListItem() {}
+    public Book() {}
 
-    public CustomBookListItem(Bitmap imageView, String title, String price, String purchaseDate) {
+    public Book(Bitmap imageView, String title, String price, String purchaseDate) {
         mImageView = imageView;
         mTitle = title;
         mPrice = price;

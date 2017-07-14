@@ -32,10 +32,10 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ListView listView = (ListView) view.findViewById(R.id.ListView_Books);
-        ArrayList<CustomBookListItem> listItems = new ArrayList<>();
+        ArrayList<Book> listItems = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-            CustomBookListItem item = new CustomBookListItem(bmp, "title" + String.valueOf(i), "price" + String.valueOf(i), "PurchaseDate" + String.valueOf(i));
+            Book item = new Book(bmp, "title" + String.valueOf(i), "price" + String.valueOf(i), "PurchaseDate" + String.valueOf(i));
             listItems.add(item);
         }
 

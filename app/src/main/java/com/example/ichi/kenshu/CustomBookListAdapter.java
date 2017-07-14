@@ -10,12 +10,12 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CustomBookListAdapter extends ArrayAdapter<CustomBookListItem> {
+public class CustomBookListAdapter extends ArrayAdapter<Book> {
     private int mResource;
-    private List<CustomBookListItem> mItems;
+    private List<Book> mItems;
     private LayoutInflater mInflater;
 
-    public CustomBookListAdapter(Context context, int resource, List<CustomBookListItem> items) {
+    public CustomBookListAdapter(Context context, int resource, List<Book> items) {
         super(context, resource, items);
 
         mResource = resource;
@@ -31,7 +31,7 @@ public class CustomBookListAdapter extends ArrayAdapter<CustomBookListItem> {
         } else {
             view = mInflater.inflate(mResource, null);
         }
-        CustomBookListItem item = mItems.get(position);
+        Book item = mItems.get(position);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.imageView_book);
         imageView.setImageBitmap(item.getImageView());
