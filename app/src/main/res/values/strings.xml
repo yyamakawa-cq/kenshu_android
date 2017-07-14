@@ -11,4 +11,7 @@
     <string name="form_name">書籍名</string>
     <string name="form_price">金額</string>
     <string name="form_purchase_date">購入日</string>
+    <string name="form_email">メールアドレス</string>
+    <string name="form_password">パスワード</string>
+    <string name="form_confirm_password">確認パスワード</string>
 </resources>

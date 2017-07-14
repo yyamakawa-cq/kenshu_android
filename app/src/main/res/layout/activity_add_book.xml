@@ -9,6 +9,8 @@
 
     <include
         android:id="@+id/include_container"
-        layout="@layout/include_book_form" />
+        layout="@layout/include_book_form"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="8dp" />
 
 </android.support.constraint.ConstraintLayout>
