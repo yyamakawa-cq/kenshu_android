@@ -10,20 +10,28 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     public Menu actionMenu;
     public Bitmap imageViewUpload;
+    public EditText editTextName;
+    public EditText editTextPrice;
+    public TextView textViewPurchaseDate;
+    private ArrayList<String> errorList = new ArrayList<>();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -32,12 +40,10 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_list:
-                    //actionMenu.getItem(0).setVisible(true);
                     BookListFragment bookListFragment = new BookListFragment();
                     changeFragment(bookListFragment);
                     return true;
                 case R.id.navigation_setting:
-                    //actionMenu.getItem(0).setVisible(false);
                     SettingFragment settingFragment = new SettingFragment();
                     changeFragment(settingFragment);
                     return true;
@@ -77,6 +83,28 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.menu_back:
                 getSupportFragmentManager().popBackStack();
+                return true;
+            case R.id.menu_save:
+                editTextName.selectAll();
+                String name = editTextName.getText().toString();
+                editTextPrice.selectAll();
+                String price = editTextPrice.getText().toString();
+                String date = textViewPurchaseDate.getText().toString();
+
+                if (name.isEmpty()) {
+                    errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
+                }
+                if (price.isEmpty()) {
+                    errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
+                }
+                if (date.isEmpty()) {
+                    errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
+                }
+                if (errorList.size() > 0 ) {
+                    showError(errorList);
+                    errorList.clear();
+                }
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -126,5 +154,19 @@ public class MainActivity extends AppCompatActivity {
     public void showDatePickerDialog(View view) {
         PurchaseDatePicker datePicker = new PurchaseDatePicker();
         datePicker.show(getFragmentManager(), "datePicker");
+    }
+
+    void showError(ArrayList error) {
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+        alertDialog.setTitle(getString(R.string.validation_error));
+        alertDialog.setPositiveButton(getString(R.string.button_ok), null);
+        StringBuilder messages = new StringBuilder();
+        for (int i = 0; i < error.size(); i++) {
+            messages.append("\n");
+            String text = (String) error.get(i);
+            messages.append(text);
+        }
+        alertDialog.setMessage(messages);
+        alertDialog.show();
     }
 }
