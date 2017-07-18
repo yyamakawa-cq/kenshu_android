@@ -44,7 +44,6 @@ public class AccountActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_save:
-
                 editTextEmail.selectAll();
                 String email = editTextEmail.getText().toString();
                 editTextPassword.selectAll();
@@ -60,7 +59,6 @@ public class AccountActivity extends AppCompatActivity {
                 } else if (!password.equals(confirmPass)) {
                     errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
                 }
-
                 if (errorList.size() > 0 ) {
                     showError(errorList);
                     errorList.clear();
