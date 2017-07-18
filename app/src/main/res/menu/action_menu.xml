@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_addBook"
+        android:id="@+id/menu_add"
         android:enabled="true"
         android:title="@string/menu_add"
         android:visible="true"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_saveBook"
+        android:id="@+id/menu_save"
         android:enabled="true"
         android:title="@string/menu_save"
         android:visible="false"

@@ -11,10 +11,14 @@
     <string name="menu_back">戻る</string>
     <string name="button_upload">画像添付</string>
     <string name="button_login">ログイン</string>
+    <string name="button_ok">OK</string>
     <string name="form_name">書籍名</string>
     <string name="form_price">金額</string>
     <string name="form_purchase_date">購入日</string>
     <string name="form_email">メールアドレス</string>
     <string name="form_password">パスワード</string>
     <string name="form_confirm_password">確認パスワード</string>
+    <string name="validation_error">エラー</string>
+    <string name="validation_isEmpty">が空です</string>
+    <string name="validation_notEqual">が違います</string>
 </resources>
