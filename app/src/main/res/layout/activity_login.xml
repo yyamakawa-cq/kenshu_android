@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.ichi.kenshu.LoginActivity">
+    tools:context=".LoginActivity">
 
     <LinearLayout
-        android:layout_width="368dp"
+        android:layout_width="@dimen/activity_width"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="10dp"
-        tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="8dp">
+        android:padding="@dimen/activity_padding"
+        android:layout_marginRight="@dimen/constrain"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="@dimen/constrain"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginTop="@dimen/constrain"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/textView_titleEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:text="@string/form_email" />
 
         <EditText
@@ -26,20 +30,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPersonName" />
-
-        <TextView
-            android:id="@+id/textView_errorEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:textSize="12sp" />
+            android:inputType="textPersonName"
+            tools:ignore="LabelFor,TextFields" />
 
         <TextView
             android:id="@+id/textView_titlePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/activity_margin_top"
             android:text="@string/form_password" />
 
         <EditText
@@ -47,20 +45,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="textPassword" />
-
-        <TextView
-            android:id="@+id/textView_errorPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
-            android:textSize="12sp" />
+            android:inputType="textPassword"
+            tools:ignore="LabelFor" />
 
         <Button
             android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="@dimen/activity_margin_top"
             android:text="@string/button_login" />
+
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

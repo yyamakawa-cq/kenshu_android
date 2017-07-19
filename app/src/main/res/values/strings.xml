@@ -21,4 +21,7 @@
     <string name="validation_error">エラー</string>
     <string name="validation_isEmpty">が空です</string>
     <string name="validation_notEqual">が違います</string>
+    <string name="sample_book_name">書籍名</string>
+    <string name="sample_book_price">¥1000</string>
+    <string name="sample_book_purchase_date">2017/01/01</string>
 </resources>

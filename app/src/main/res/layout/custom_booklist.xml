@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container_bookItem"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="@dimen/activity_padding">
 
     <ImageView
         android:id="@+id/imageView_book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        app:srcCompat="@android:drawable/ic_menu_gallery" />
+        app:srcCompat="@android:drawable/ic_menu_gallery"
+        android:contentDescription="@string/sample_book_name" />
 
     <RelativeLayout
         android:id="@+id/container_textViews"
@@ -24,7 +26,7 @@
             android:id="@+id/textView_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView_name" />
+            android:text="@string/sample_book_name" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -37,17 +39,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView_price"
-                android:textSize="10sp" />
+                android:text="@string/sample_book_price"
+                android:textSize="@dimen/text_size_small" />
 
             <TextView
                 android:id="@+id/textView_purchaseDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TextView_purchaseDate"
+                android:text="@string/sample_book_purchase_date"
                 android:textAlignment="viewEnd"
-                android:textSize="10sp" />
+                android:textSize="@dimen/text_size_small" />
 
         </LinearLayout>
 
@@ -59,6 +61,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_weight="0"
-        app:srcCompat="@drawable/ic_chevron_right_black_24dp" />
+        app:srcCompat="@drawable/ic_chevron_right_black_24dp"
+        tools:ignore="ContentDescription" />
 
 </LinearLayout>
