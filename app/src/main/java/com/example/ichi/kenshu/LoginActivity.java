@@ -3,7 +3,6 @@ package com.example.ichi.kenshu;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.AppLaunchChecker;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -34,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 editTextPassword.selectAll();
                 String password = editTextPassword.getText().toString();
+                ShowErrorDialog showErrorDialog = new ShowErrorDialog();
 
                 if (email.isEmpty()) {
                     errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    showError(errorList);
+                    showErrorDialog.showError(errorList, LoginActivity.this);
                     errorList.clear();
                 } else {
                 Intent intent = new Intent(getApplication(), MainActivity.class);
@@ -59,18 +59,5 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         AppLaunchChecker.onActivityCreate(this);
-    }
-    void showError(ArrayList error) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle(getString(R.string.validation_error));
-        alertDialog.setPositiveButton(getString(R.string.button_ok), null);
-        StringBuilder messages = new StringBuilder();
-        for (int i = 0; i < error.size(); i++) {
-            messages.append("\n");
-            String text = (String) error.get(i);
-            messages.append(text);
-        }
-        alertDialog.setMessage(messages);
-        alertDialog.show();
     }
 }

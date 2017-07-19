@@ -10,7 +10,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 editTextPrice.selectAll();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
+                ShowErrorDialog showErrorDialog = new ShowErrorDialog();
 
                 if (name.isEmpty()) {
                     errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    showError(errorList);
+                    showErrorDialog.showError(errorList, this);
                     errorList.clear();
                 }
                 return true;
@@ -154,19 +154,5 @@ public class MainActivity extends AppCompatActivity {
     public void showDatePickerDialog(View view) {
         PurchaseDatePicker datePicker = new PurchaseDatePicker();
         datePicker.show(getFragmentManager(), "datePicker");
-    }
-
-    void showError(ArrayList error) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle(getString(R.string.validation_error));
-        alertDialog.setPositiveButton(getString(R.string.button_ok), null);
-        StringBuilder messages = new StringBuilder();
-        for (int i = 0; i < error.size(); i++) {
-            messages.append("\n");
-            String text = (String) error.get(i);
-            messages.append(text);
-        }
-        alertDialog.setMessage(messages);
-        alertDialog.show();
     }
 }

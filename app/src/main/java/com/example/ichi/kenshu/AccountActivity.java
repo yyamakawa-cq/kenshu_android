@@ -1,7 +1,6 @@
 package com.example.ichi.kenshu;
 
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +49,7 @@ public class AccountActivity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString();
                 editTextConfirmPassword.selectAll();
                 String confirmPass = editTextConfirmPassword.getText().toString();
+                ShowErrorDialog showErrorDialog = new ShowErrorDialog();
 
                 if (email.isEmpty()) {
                     errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
@@ -60,25 +60,12 @@ public class AccountActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
                 }
                 if (errorList.size() > 0 ) {
-                    showError(errorList);
+                    showErrorDialog.showError(errorList,this);
                     errorList.clear();
                 }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-    void showError(ArrayList error) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
-        alertDialog.setTitle(getString(R.string.validation_error));
-        alertDialog.setPositiveButton(getString(R.string.button_ok), null);
-        StringBuilder messages = new StringBuilder();
-        for (int i = 0; i < error.size(); i++) {
-            messages.append("\n");
-            String text = (String) error.get(i);
-            messages.append(text);
-        }
-        alertDialog.setMessage(messages);
-        alertDialog.show();
     }
 }
