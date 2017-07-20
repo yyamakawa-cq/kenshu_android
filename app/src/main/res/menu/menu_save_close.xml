@@ -3,30 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_add"
-        android:enabled="true"
-        android:title="@string/menu_add"
-        android:visible="true"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/menu_save"
         android:enabled="true"
         android:title="@string/menu_save"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/menu_close"
         android:enabled="true"
         android:icon="@drawable/ic_close_black_24dp"
         android:title="@string/menu_close"
-        android:visible="false"
+        android:visible="true"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/menu_back"
-        android:enabled="true"
-        android:icon="@drawable/ic_keyboard_return_black_24dp"
-        android:title="@string/menu_back"
-        android:visible="false"
-        app:showAsAction="ifRoom" />
-
 </menu>

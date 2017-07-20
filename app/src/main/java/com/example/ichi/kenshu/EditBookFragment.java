@@ -38,7 +38,7 @@ public class EditBookFragment extends Fragment {
 
         parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
         parent.actionMenu.getItem(1).setVisible(true);//保存:表示
-        parent.actionMenu.getItem(3).setVisible(true);//戻る:表示
+        parent.actionMenu.getItem(2).setVisible(true);//戻る:表示
 
         parent.editTextName = getActivity().findViewById(R.id.editText_name);
         parent.editTextPrice = getActivity().findViewById(R.id.editText_price);

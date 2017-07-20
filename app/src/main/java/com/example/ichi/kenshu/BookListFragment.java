@@ -63,7 +63,7 @@ public class BookListFragment extends Fragment {
         if (parent.actionMenu != null) {
             parent.actionMenu.getItem(0).setVisible(true);//追加:表示
             parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
-            parent.actionMenu.getItem(3).setVisible(false);//戻る:非表示
+            parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
         }
     }
 

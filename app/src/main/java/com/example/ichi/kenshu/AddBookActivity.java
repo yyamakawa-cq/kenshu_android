@@ -55,11 +55,8 @@ public class AddBookActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.action_menu, menu);
+        inflater.inflate(R.menu.menu_save_close, menu);
         this.actionMenu = menu;
-        actionMenu.getItem(0).setVisible(false);//追加:非表示
-        actionMenu.getItem(1).setVisible(true);//保存:表示
-        actionMenu.getItem(2).setVisible(true);//閉じる:表示
         return true;
     }
 

@@ -32,7 +32,7 @@ public class SettingFragment extends Fragment {
 
         parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
         parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
-        parent.actionMenu.getItem(3).setVisible(false);//戻る:非表示
+        parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
     }
 
     @Override
