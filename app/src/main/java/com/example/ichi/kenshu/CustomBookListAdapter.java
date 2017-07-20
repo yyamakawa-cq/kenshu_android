@@ -26,7 +26,7 @@ public class CustomBookListAdapter extends ArrayAdapter<Book> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view;
-        if(convertView != null) {
+        if (convertView != null) {
             view = convertView;
         } else {
             view = mInflater.inflate(mResource, null);

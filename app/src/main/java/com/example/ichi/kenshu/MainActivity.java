@@ -131,8 +131,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 0){
-            if(resultCode == Activity.RESULT_OK) {
+        if (requestCode == 0){
+            if (resultCode == Activity.RESULT_OK) {
                 ContentResolver contentResolver = getContentResolver();
                 InputStream inputStream = null;
                 try {
