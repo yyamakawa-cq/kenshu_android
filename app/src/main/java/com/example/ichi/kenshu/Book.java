@@ -8,8 +8,6 @@ public class Book {
     private String mPrice = null;
     private String mPurchaseDate = null;
 
-    public Book() {}
-
     public Book(Bitmap imageView, String title, String price, String purchaseDate) {
         mImageView = imageView;
         mTitle = title;

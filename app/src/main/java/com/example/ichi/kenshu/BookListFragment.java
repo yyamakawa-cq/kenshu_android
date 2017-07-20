@@ -20,8 +20,6 @@ public class BookListFragment extends Fragment {
 
     private MainActivity parent;
 
-    public BookListFragment() {}
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_booklist, container, false);
@@ -31,7 +29,7 @@ public class BookListFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ListView listView = (ListView) view.findViewById(R.id.ListView_Books);
+        ListView listView = view.findViewById(R.id.ListView_Books);
         ArrayList<Book> listItems = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);

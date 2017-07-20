@@ -8,8 +8,6 @@ import java.util.List;
 
 public class ShowErrorDialog {
 
-    public ShowErrorDialog() {}
-
     public void showError(List error, Context context) {
         StringBuilder messages = new StringBuilder();
         for (Object e : error) {
