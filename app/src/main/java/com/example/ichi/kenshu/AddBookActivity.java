@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddBookActivity extends AppCompatActivity {
     public Menu actionMenu;
@@ -27,7 +28,7 @@ public class AddBookActivity extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextPrice;
     private TextView textViewPurchaseDate;
-    private ArrayList<String> errorList = new ArrayList<>();
+    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

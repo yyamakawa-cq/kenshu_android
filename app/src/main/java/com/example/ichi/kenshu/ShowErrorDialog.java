@@ -3,18 +3,17 @@ package com.example.ichi.kenshu;
 import android.content.Context;
 import android.support.v7.app.AlertDialog;
 
-import java.util.ArrayList;
+import java.util.List;
 
 
 public class ShowErrorDialog {
 
     public ShowErrorDialog() {}
 
-    public void showError(ArrayList error, Context context) {
+    public void showError(List error, Context context) {
         StringBuilder messages = new StringBuilder();
         for (Object e : error) {
-            messages.append("\n");
-            messages.append(e);
+            messages.append("\n" + e);
         }
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
                 .setTitle(context.getString(R.string.validation_error))

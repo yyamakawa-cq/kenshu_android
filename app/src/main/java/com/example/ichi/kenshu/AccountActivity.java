@@ -8,13 +8,14 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AccountActivity extends AppCompatActivity {
     public Menu actionMenu;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
-    private ArrayList<String> errorList = new ArrayList<>();
+    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
