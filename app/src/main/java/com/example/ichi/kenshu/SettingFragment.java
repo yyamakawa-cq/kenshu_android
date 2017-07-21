@@ -1,7 +1,6 @@
 package com.example.ichi.kenshu;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -22,6 +21,14 @@ public class SettingFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        if (getActivity() instanceof MainActivity) {
+            parent = (MainActivity) getActivity();
+        }
+
+        parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
+        parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
+        parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
+
         Button button = getActivity().findViewById(R.id.button_goToAccount);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,17 +36,5 @@ public class SettingFragment extends Fragment {
                 parent.moveToAccountActivity();
             }
         });
-
-        parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
-        parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
-        parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        if (getActivity() instanceof MainActivity) {
-            parent = (MainActivity) getActivity();
-        }
-        super.onAttach(context);
     }
 }

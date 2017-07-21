@@ -1,7 +1,6 @@
 package com.example.ichi.kenshu;
 
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -57,18 +56,14 @@ public class BookListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        if (parent.actionMenu != null) {
-            parent.actionMenu.getItem(0).setVisible(true);//追加:表示
-            parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
-            parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
-        }
-    }
 
-    @Override
-    public void onAttach(Context context) {
         if (getActivity() instanceof MainActivity) {
             parent = (MainActivity) getActivity();
+            if (parent.actionMenu != null) {
+                parent.actionMenu.getItem(0).setVisible(true);//追加:表示
+                parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
+                parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
+            }
         }
-        super.onAttach(context);
     }
 }
