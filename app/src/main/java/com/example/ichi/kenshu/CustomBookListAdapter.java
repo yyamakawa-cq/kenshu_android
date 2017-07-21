@@ -11,14 +11,11 @@ import android.widget.TextView;
 import java.util.List;
 
 public class CustomBookListAdapter extends ArrayAdapter<Book> {
-    private int mResource;
     private List<Book> mItems;
     private LayoutInflater mInflater;
 
     public CustomBookListAdapter(Context context, int resource, List<Book> items) {
         super(context, resource, items);
-
-        mResource = resource;
         mItems = items;
         mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -29,7 +26,7 @@ public class CustomBookListAdapter extends ArrayAdapter<Book> {
         if (convertView != null) {
             view = convertView;
         } else {
-            view = mInflater.inflate(mResource, null);
+            view = mInflater.inflate(R.layout.custom_booklist, null);
         }
         Book item = mItems.get(position);
 

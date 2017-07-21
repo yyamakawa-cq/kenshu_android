@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class BookListFragment extends Fragment {
 
@@ -30,7 +31,7 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ListView listView = view.findViewById(R.id.ListView_Books);
-        ArrayList<Book> listItems = new ArrayList<>();
+        List<Book> listItems = new ArrayList<>();
         for(int i = 0; i < 10; i++) {
             Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
             Book item = new Book(bmp, "title" + String.valueOf(i), "price" + String.valueOf(i), "PurchaseDate" + String.valueOf(i));
