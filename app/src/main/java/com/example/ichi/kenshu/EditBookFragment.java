@@ -13,6 +13,7 @@ import android.widget.ImageView;
 public class EditBookFragment extends Fragment {
 
     private MainActivity parent;
+    private static final String ARGS_POSITION = "args_position";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,5 +50,13 @@ public class EditBookFragment extends Fragment {
     public void onAttach(Context context) {
         parent = (MainActivity) context;
         super.onAttach(context);
+    }
+
+    public static EditBookFragment newInstance(int position) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(ARGS_POSITION, position);
+        EditBookFragment editBookFragment = new EditBookFragment();
+        editBookFragment.setArguments(bundle);
+        return editBookFragment;
     }
 }

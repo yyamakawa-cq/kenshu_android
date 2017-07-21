@@ -43,13 +43,9 @@ public class BookListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EditBookFragment editBookFragment = new EditBookFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt("selected", position);
-                editBookFragment.setArguments(bundle);
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content, editBookFragment);
+                transaction.replace(R.id.content, EditBookFragment.newInstance(position));
 
                 transaction.addToBackStack(null);
                 transaction.commit();
