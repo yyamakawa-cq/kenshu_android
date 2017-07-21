@@ -48,7 +48,9 @@ public class EditBookFragment extends Fragment {
 
     @Override
     public void onAttach(Context context) {
-        parent = (MainActivity) context;
+        if (getActivity() instanceof MainActivity) {
+            parent = (MainActivity) getActivity();
+        }
         super.onAttach(context);
     }
 
