@@ -47,7 +47,7 @@ public class AccountActivity extends AppCompatActivity {
                 String password = editTextPassword.getText().toString();
                 editTextConfirmPassword.selectAll();
                 String confirmPass = editTextConfirmPassword.getText().toString();
-                ShowErrorDialog showErrorDialog = new ShowErrorDialog();
+                ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
 
                 if (email.isEmpty()) {
                     errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
@@ -58,7 +58,7 @@ public class AccountActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
                 }
                 if (errorList.size() > 0 ) {
-                    showErrorDialog.showError(errorList,this);
+                    showErrorDialogUtil.showError(errorList,this);
                     errorList.clear();
                 }
                 return true;

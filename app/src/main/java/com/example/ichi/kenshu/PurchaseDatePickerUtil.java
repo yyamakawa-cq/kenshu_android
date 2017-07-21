@@ -7,7 +7,7 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class PurchaseDatePicker extends DialogFragment implements DatePickerDialog.OnDateSetListener{
+public class PurchaseDatePickerUtil extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 editTextPassword.selectAll();
                 String password = editTextPassword.getText().toString();
-                ShowErrorDialog showErrorDialog = new ShowErrorDialog();
+                ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
 
                 if (email.isEmpty()) {
                     errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    showErrorDialog.showError(errorList, LoginActivity.this);
+                    showErrorDialogUtil.showError(errorList, LoginActivity.this);
                     errorList.clear();
                 } else {
                 Intent intent = new Intent(getApplication(), MainActivity.class);

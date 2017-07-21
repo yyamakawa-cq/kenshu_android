@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                 editTextPrice.selectAll();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                ShowErrorDialog showErrorDialog = new ShowErrorDialog();
+                ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
 
                 if (name.isEmpty()) {
                     errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    showErrorDialog.showError(errorList, this);
+                    showErrorDialogUtil.showError(errorList, this);
                     errorList.clear();
                 }
                 return true;
@@ -153,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View view) {
-        PurchaseDatePicker datePicker = new PurchaseDatePicker();
+        PurchaseDatePickerUtil datePicker = new PurchaseDatePickerUtil();
         datePicker.show(getFragmentManager(), "datePicker");
     }
 }

@@ -6,7 +6,7 @@ import android.support.v7.app.AlertDialog;
 import java.util.List;
 
 
-public class ShowErrorDialog {
+public class ShowErrorDialogUtil {
 
     public void showError(List error, Context context) {
         StringBuilder messages = new StringBuilder();
