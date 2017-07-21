@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ShowErrorDialogUtil {
 
-    public void showError(List error, Context context) {
+    public void showError(List<String> error, Context context) {
         StringBuilder messages = new StringBuilder();
         for (Object e : error) {
             messages.append("\n" + e);
