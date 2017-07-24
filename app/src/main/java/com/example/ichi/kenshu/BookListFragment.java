@@ -18,8 +18,6 @@ import java.util.List;
 
 public class BookListFragment extends Fragment {
 
-    private MainActivity parent;
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_booklist, container, false);
@@ -58,11 +56,12 @@ public class BookListFragment extends Fragment {
         super.onStart();
 
         if (getActivity() instanceof MainActivity) {
-            parent = (MainActivity) getActivity();
-            if (parent.actionMenu != null) {
-                parent.actionMenu.getItem(0).setVisible(true);//追加:表示
-                parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
-                parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
+            final MainActivity PARENT;
+            PARENT = (MainActivity) getActivity();
+            if (PARENT.actionMenu != null) {
+                PARENT.actionMenu.getItem(0).setVisible(true);//追加:表示
+                PARENT.actionMenu.getItem(1).setVisible(false);//保存:非表示
+                PARENT.actionMenu.getItem(2).setVisible(false);//戻る:非表示
             }
         }
     }

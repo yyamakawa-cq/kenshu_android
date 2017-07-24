@@ -11,7 +11,6 @@ import android.widget.ImageView;
 
 public class EditBookFragment extends Fragment {
 
-    private MainActivity parent;
     private static final String ARGS_POSITION = "args_position";
 
     @Override
@@ -22,31 +21,31 @@ public class EditBookFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
         if (getActivity() instanceof MainActivity) {
-            parent = (MainActivity) getActivity();
-        }
+            final MainActivity PARENT = (MainActivity) getActivity();
 
-        parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
-        parent.actionMenu.getItem(1).setVisible(true);//保存:表示
-        parent.actionMenu.getItem(2).setVisible(true);//戻る:表示
+            PARENT.actionMenu.getItem(0).setVisible(false);//追加:非表示
+            PARENT.actionMenu.getItem(1).setVisible(true);//保存:表示
+            PARENT.actionMenu.getItem(2).setVisible(true);//戻る:表示
 
-        Button button = getActivity().findViewById(R.id.button_upload);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                parent.pickImageView();
+            Button button = getActivity().findViewById(R.id.button_upload);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    PARENT.pickImageView();
+                }
+            });
+
+            if (PARENT.imageViewUpload != null) {
+                ImageView imageViewUpload = getActivity().findViewById(R.id.imageView_upload);
+                imageViewUpload.setImageBitmap(PARENT.imageViewUpload);
             }
-        });
 
-        if (parent.imageViewUpload != null) {
-            ImageView imageViewUpload = getActivity().findViewById(R.id.imageView_upload);
-            imageViewUpload.setImageBitmap(parent.imageViewUpload);
+            PARENT.editTextName = getActivity().findViewById(R.id.editText_name);
+            PARENT.editTextPrice = getActivity().findViewById(R.id.editText_price);
+            PARENT.textViewPurchaseDate = getActivity().findViewById(R.id.textView_purchaseDate);
+
         }
-
-        parent.editTextName = getActivity().findViewById(R.id.editText_name);
-        parent.editTextPrice = getActivity().findViewById(R.id.editText_price);
-        parent.textViewPurchaseDate = getActivity().findViewById(R.id.textView_purchaseDate);
     }
 
     public static EditBookFragment newInstance(int position) {
