@@ -11,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -92,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 String date = textViewPurchaseDate.getText().toString();
                 ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
 
-                if (name.isEmpty()) {
+                if (TextUtils.isEmpty(name)) {
                     errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
                 }
-                if (price.isEmpty()) {
+                if (TextUtils.isEmpty(price)) {
                     errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
                 }
-                if (date.isEmpty()) {
+                if (TextUtils.isEmpty(date)) {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {

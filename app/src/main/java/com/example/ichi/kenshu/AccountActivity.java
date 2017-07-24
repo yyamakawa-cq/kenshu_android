@@ -2,6 +2,7 @@ package com.example.ichi.kenshu;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,12 +50,13 @@ public class AccountActivity extends AppCompatActivity {
                 String confirmPass = editTextConfirmPassword.getText().toString();
                 ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
 
-                if (email.isEmpty()) {
+                if (TextUtils.isEmpty(email)) {
                     errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
                 }
-                if (password.isEmpty()) {
+                if (TextUtils.isEmpty(password)) {
                     errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
-                } else if (!password.equals(confirmPass)) {
+                }
+                else if (!TextUtils.equals(password,confirmPass)) {
                     errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
                 }
                 if (errorList.size() > 0 ) {
