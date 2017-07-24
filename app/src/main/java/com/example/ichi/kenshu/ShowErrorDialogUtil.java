@@ -10,7 +10,7 @@ public class ShowErrorDialogUtil {
 
     public void showError(List<String> error, Context context) {
         StringBuilder messages = new StringBuilder();
-        for (Object e : error) {
+        for (String e : error) {
             messages.append("\n" + e);
         }
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
