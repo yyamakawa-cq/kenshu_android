@@ -20,18 +20,18 @@ public class SettingFragment extends Fragment {
         super.onStart();
 
         if (getActivity() instanceof MainActivity) {
-            final MainActivity PARENT;
-            PARENT = (MainActivity) getActivity();
+            final MainActivity parent;
+            parent = (MainActivity) getActivity();
 
-            PARENT.actionMenu.getItem(0).setVisible(false);//追加:非表示
-            PARENT.actionMenu.getItem(1).setVisible(false);//保存:非表示
-            PARENT.actionMenu.getItem(2).setVisible(false);//戻る:非表示
+            parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
+            parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
+            parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
 
             Button button = getActivity().findViewById(R.id.button_goToAccount);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    PARENT.moveToAccountActivity();
+                    parent.moveToAccountActivity();
                 }
             });
         }

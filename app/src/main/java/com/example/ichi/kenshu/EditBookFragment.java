@@ -22,28 +22,28 @@ public class EditBookFragment extends Fragment {
     public void onStart() {
         super.onStart();
         if (getActivity() instanceof MainActivity) {
-            final MainActivity PARENT = (MainActivity) getActivity();
+            final MainActivity parent = (MainActivity) getActivity();
 
-            PARENT.actionMenu.getItem(0).setVisible(false);//追加:非表示
-            PARENT.actionMenu.getItem(1).setVisible(true);//保存:表示
-            PARENT.actionMenu.getItem(2).setVisible(true);//戻る:表示
+            parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
+            parent.actionMenu.getItem(1).setVisible(true);//保存:表示
+            parent.actionMenu.getItem(2).setVisible(true);//戻る:表示
 
             Button button = getActivity().findViewById(R.id.button_upload);
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    PARENT.pickImageView();
+                    parent.pickImageView();
                 }
             });
 
-            if (PARENT.imageViewUpload != null) {
+            if (parent.imageViewUpload != null) {
                 ImageView imageViewUpload = getActivity().findViewById(R.id.imageView_upload);
-                imageViewUpload.setImageBitmap(PARENT.imageViewUpload);
+                imageViewUpload.setImageBitmap(parent.imageViewUpload);
             }
 
-            PARENT.editTextName = getActivity().findViewById(R.id.editText_name);
-            PARENT.editTextPrice = getActivity().findViewById(R.id.editText_price);
-            PARENT.textViewPurchaseDate = getActivity().findViewById(R.id.textView_purchaseDate);
+            parent.editTextName = getActivity().findViewById(R.id.editText_name);
+            parent.editTextPrice = getActivity().findViewById(R.id.editText_price);
+            parent.textViewPurchaseDate = getActivity().findViewById(R.id.textView_purchaseDate);
 
         }
     }
