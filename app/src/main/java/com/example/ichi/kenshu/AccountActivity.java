@@ -35,6 +35,7 @@ public class AccountActivity extends AppCompatActivity {
         this.actionMenu = menu;
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -42,11 +43,8 @@ public class AccountActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_save:
-                editTextEmail.selectAll();
                 String email = editTextEmail.getText().toString();
-                editTextPassword.selectAll();
                 String password = editTextPassword.getText().toString();
-                editTextConfirmPassword.selectAll();
                 String confirmPass = editTextConfirmPassword.getText().toString();
                 ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
 

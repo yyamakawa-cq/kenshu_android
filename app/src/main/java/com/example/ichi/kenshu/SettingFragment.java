@@ -1,6 +1,7 @@
 package com.example.ichi.kenshu;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -18,22 +19,13 @@ public class SettingFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
-        if (getActivity() instanceof MainActivity) {
-            final MainActivity parent;
-            parent = (MainActivity) getActivity();
-
-            parent.actionMenu.getItem(0).setVisible(false);//追加:非表示
-            parent.actionMenu.getItem(1).setVisible(false);//保存:非表示
-            parent.actionMenu.getItem(2).setVisible(false);//戻る:非表示
-
-            Button button = getActivity().findViewById(R.id.button_goToAccount);
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    parent.moveToAccountActivity();
-                }
-            });
-        }
+        Button button = getActivity().findViewById(R.id.button_goToAccount);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), AccountActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -68,9 +68,7 @@ public class AddBookActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_save:
-                editTextName.selectAll();
                 String name = editTextName.getText().toString();
-                editTextPrice.selectAll();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
                 ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
