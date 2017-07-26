@@ -60,12 +60,12 @@ public class AddBookActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        List<String> errorList = new ArrayList<>();
         switch (item.getItemId()) {
             case R.id.menu_close:
                 finish();
                 return true;
             case R.id.menu_save:
+                List<String> errorList = new ArrayList<>();
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();

@@ -35,12 +35,12 @@ public class AccountActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        List<String> errorList = new ArrayList<>();
         switch (item.getItemId()) {
             case R.id.menu_close:
                 finish();
                 return true;
             case R.id.menu_save:
+                List<String> errorList = new ArrayList<>();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPass = editTextConfirmPassword.getText().toString();
