@@ -6,9 +6,9 @@ import android.support.v7.app.AlertDialog;
 import java.util.List;
 
 
-public class ShowErrorDialogUtil {
+public class ErrorDialogUtil {
 
-    public void showError(List<String> error, Context context) {
+    public static void showError(List<String> error, Context context) {
         StringBuilder messages = new StringBuilder();
         for (String e : error) {
             messages.append("\n" + e);

@@ -76,7 +76,7 @@ public class EditBookFragment extends Fragment {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
+                ErrorDialogUtil errorDialogUtil = new ErrorDialogUtil();
 
                 if (TextUtils.isEmpty(name)) {
                     errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
@@ -88,7 +88,7 @@ public class EditBookFragment extends Fragment {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    showErrorDialogUtil.showError(errorList, getContext());
+                    errorDialogUtil.showError(errorList, getContext());
                 }
                 return true;
             case R.id.menu_back:
