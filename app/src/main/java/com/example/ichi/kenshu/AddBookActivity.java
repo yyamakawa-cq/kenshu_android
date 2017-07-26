@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AddBookActivity extends AppCompatActivity {
-    public Menu actionMenu;
     private ImageView imageViewUpload;
     private EditText editTextName;
     private EditText editTextPrice;
@@ -56,7 +55,6 @@ public class AddBookActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_save_close, menu);
-        this.actionMenu = menu;
         return true;
     }
 

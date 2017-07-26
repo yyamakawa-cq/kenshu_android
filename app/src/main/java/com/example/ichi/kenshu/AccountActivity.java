@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountActivity extends AppCompatActivity {
-    public Menu actionMenu;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
@@ -31,7 +30,6 @@ public class AccountActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_save_close, menu);
-        this.actionMenu = menu;
         return true;
     }
 
