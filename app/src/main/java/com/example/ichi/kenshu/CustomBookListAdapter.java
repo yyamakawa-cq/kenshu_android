@@ -11,13 +11,13 @@ import android.widget.TextView;
 import java.util.List;
 
 public class CustomBookListAdapter extends ArrayAdapter<Book> {
-    private List<Book> mItems;
-    private LayoutInflater mInflater;
+    private List<Book> books;
+    private LayoutInflater inflater;
 
     public CustomBookListAdapter(Context context, int resource, List<Book> items) {
         super(context, resource, items);
-        mItems = items;
-        mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        books = items;
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
     @Override
@@ -26,20 +26,20 @@ public class CustomBookListAdapter extends ArrayAdapter<Book> {
         if (convertView != null) {
             view = convertView;
         } else {
-            view = mInflater.inflate(R.layout.custom_booklist, null);
+            view = inflater.inflate(R.layout.custom_booklist, null);
         }
-        Book item = mItems.get(position);
+        Book item = books.get(position);
 
-        ImageView imageView = (ImageView) view.findViewById(R.id.imageView_book);
+        ImageView imageView = view.findViewById(R.id.imageView_book);
         imageView.setImageBitmap(item.getImageView());
 
-        TextView title = (TextView) view.findViewById(R.id.textView_name);
+        TextView title = view.findViewById(R.id.textView_name);
         title.setText(item.getTitle());
 
-        TextView price = (TextView) view.findViewById(R.id.textView_price);
+        TextView price = view.findViewById(R.id.textView_price);
         price.setText(item.getPrice());
 
-        TextView purchaseDate = (TextView) view.findViewById(R.id.textView_purchaseDate);
+        TextView purchaseDate = view.findViewById(R.id.textView_purchaseDate);
         purchaseDate.setText(item.getPurchaseDate());
 
         return view;

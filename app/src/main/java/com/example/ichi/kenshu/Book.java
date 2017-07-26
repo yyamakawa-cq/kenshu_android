@@ -3,47 +3,47 @@ package com.example.ichi.kenshu;
 import android.graphics.Bitmap;
 
 public class Book {
-    private Bitmap mImageView = null;
-    private String mTitle = null;
-    private String mPrice = null;
-    private String mPurchaseDate = null;
+    private Bitmap imageView = null;
+    private String title = null;
+    private String price = null;
+    private String purchaseDate = null;
 
-    public Book(Bitmap imageView, String title, String price, String purchaseDate) {
-        mImageView = imageView;
-        mTitle = title;
-        mPrice = price;
-        mPurchaseDate = purchaseDate;
+    public Book(Bitmap bookImage, String bookTitle, String bookPrice, String bookPurchaseDate) {
+        imageView = bookImage;
+        title = bookTitle;
+        price = bookPrice;
+        purchaseDate = bookPurchaseDate;
     }
 
-    public void setmImageView(Bitmap imageView) {
-        mImageView = imageView;
+    public void setImageView(Bitmap bookImage) {
+        imageView = bookImage;
     }
 
-    public void setmTitle(String title) {
-        mTitle = title;
+    public void setTitle(String bookTitle) {
+        title = bookTitle;
     }
 
-    public void setmPrice(String price) {
-        mPrice = price;
+    public void setPrice(String bookPrice) {
+        price = bookPrice;
     }
 
-    public void setmPurchaseDate(String purchaseDate) {
-        mPurchaseDate = purchaseDate;
+    public void setPurchaseDate(String bookPurchaseDate) {
+        purchaseDate = bookPurchaseDate;
     }
 
     public Bitmap getImageView() {
-        return mImageView;
+        return imageView;
     }
 
     public String getTitle() {
-        return mTitle;
+        return title;
     }
 
     public String getPrice(){
-        return mPrice;
+        return price;
     }
 
     public String getPurchaseDate() {
-        return mPurchaseDate;
+        return purchaseDate;
     }
 }
