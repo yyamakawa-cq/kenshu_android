@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
-import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,10 +47,5 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.content, fragment);
         transaction.commit();
-    }
-
-    public void showDatePickerDialog(View view) {
-        PurchaseDatePickerUtil datePicker = new PurchaseDatePickerUtil();
-        datePicker.show(getFragmentManager(), "datePicker");
     }
 }

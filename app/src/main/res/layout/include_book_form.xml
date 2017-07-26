@@ -84,7 +84,6 @@
         android:layout_marginLeft="@dimen/purchase_date_margin"
         android:layout_marginRight="@dimen/purchase_date_margin"
         android:background="@drawable/underline"
-        android:onClick="showDatePickerDialog"
         android:paddingBottom="@dimen/purchase_date_padding_bottom"
         android:paddingTop="@dimen/purchase_date_padding_bottom"
         android:textSize="@dimen/purchase_date_text_size" />

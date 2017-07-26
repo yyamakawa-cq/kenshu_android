@@ -49,6 +49,13 @@ public class AddBookActivity extends AppCompatActivity {
         editTextName = (EditText) findViewById(R.id.editText_name);
         editTextPrice = (EditText) findViewById(R.id.editText_price);
         textViewPurchaseDate = (TextView) findViewById(R.id.textView_purchaseDate);
+        textViewPurchaseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PurchaseDatePickerUtil datePicker = new PurchaseDatePickerUtil();
+                datePicker.show(getFragmentManager(), "datePicker");
+            }
+        });
     }
 
     @Override
@@ -110,10 +117,5 @@ public class AddBookActivity extends AppCompatActivity {
                 imageViewUpload.setImageBitmap(bitmap);
             }
         }
-    }
-
-    public void showDatePickerDialog(View view) {
-        PurchaseDatePickerUtil datePicker = new PurchaseDatePickerUtil();
-        datePicker.show(getFragmentManager(), "datePicker");
     }
 }

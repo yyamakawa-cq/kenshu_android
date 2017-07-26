@@ -60,6 +60,14 @@ public class EditBookFragment extends Fragment {
                 startActivityForResult(intent, 0);
             }
         });
+
+        textViewPurchaseDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PurchaseDatePickerUtil datePicker = new PurchaseDatePickerUtil();
+                datePicker.show(getActivity().getFragmentManager(),"datePicker");
+            }
+        });
     }
 
     @Override
