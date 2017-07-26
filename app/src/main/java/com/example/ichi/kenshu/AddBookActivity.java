@@ -69,7 +69,6 @@ public class AddBookActivity extends AppCompatActivity {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                ErrorDialogUtil errorDialogUtil = new ErrorDialogUtil();
 
                 if (TextUtils.isEmpty(name)) {
                     errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
@@ -81,7 +80,7 @@ public class AddBookActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                   errorDialogUtil.showError(errorList, this);
+                   ErrorDialogUtil.showError(errorList, this);
                 }
                 return true;
             default:
@@ -103,6 +102,7 @@ public class AddBookActivity extends AppCompatActivity {
                 }
                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                 try {
+                    assert inputStream != null;
                     inputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();

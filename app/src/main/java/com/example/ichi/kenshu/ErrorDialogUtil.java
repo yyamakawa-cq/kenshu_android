@@ -11,7 +11,7 @@ public class ErrorDialogUtil {
     public static void showError(List<String> error, Context context) {
         StringBuilder messages = new StringBuilder();
         for (String e : error) {
-            messages.append("\n" + e);
+            messages.append("\n").append(e);
         }
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
                 .setTitle(context.getString(R.string.validation_error))

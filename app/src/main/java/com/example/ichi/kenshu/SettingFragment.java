@@ -20,7 +20,7 @@ public class SettingFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Button button = getActivity().findViewById(R.id.button_goToAccount);
+        Button button = view.findViewById(R.id.button_goToAccount);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

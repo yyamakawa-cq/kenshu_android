@@ -45,12 +45,12 @@ public class EditBookFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        editTextName = getActivity().findViewById(R.id.editText_name);
-        editTextPrice = getActivity().findViewById(R.id.editText_price);
-        textViewPurchaseDate = getActivity().findViewById(R.id.textView_purchaseDate);
-        imageViewUpload = getActivity().findViewById(R.id.imageView_upload);
+        editTextName = view.findViewById(R.id.editText_name);
+        editTextPrice = view.findViewById(R.id.editText_price);
+        textViewPurchaseDate = view.findViewById(R.id.textView_purchaseDate);
+        imageViewUpload = view.findViewById(R.id.imageView_upload);
 
-        Button button = getActivity().findViewById(R.id.button_upload);
+        Button button = view.findViewById(R.id.button_upload);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +76,6 @@ public class EditBookFragment extends Fragment {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                ErrorDialogUtil errorDialogUtil = new ErrorDialogUtil();
 
                 if (TextUtils.isEmpty(name)) {
                     errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
@@ -88,7 +87,7 @@ public class EditBookFragment extends Fragment {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    errorDialogUtil.showError(errorList, getContext());
+                    ErrorDialogUtil.showError(errorList, getContext());
                 }
                 return true;
             case R.id.menu_back:
