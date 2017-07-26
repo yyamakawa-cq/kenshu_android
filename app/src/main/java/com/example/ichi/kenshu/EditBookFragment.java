@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -41,8 +42,9 @@ public class EditBookFragment extends Fragment {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
         editTextName = getActivity().findViewById(R.id.editText_name);
         editTextPrice = getActivity().findViewById(R.id.editText_price);
         textViewPurchaseDate = getActivity().findViewById(R.id.textView_purchaseDate);
