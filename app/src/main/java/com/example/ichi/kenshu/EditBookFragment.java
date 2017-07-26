@@ -33,7 +33,6 @@ public class EditBookFragment extends Fragment {
     private EditText editTextName;
     private EditText editTextPrice;
     private TextView textViewPurchaseDate;
-    private List<String> errorList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,6 +68,7 @@ public class EditBookFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        List<String> errorList = new ArrayList<>();
         switch (item.getItemId()){
             case R.id.menu_save:
                 String name = editTextName.getText().toString();
@@ -87,7 +87,6 @@ public class EditBookFragment extends Fragment {
                 }
                 if (errorList.size() > 0 ) {
                     showErrorDialogUtil.showError(errorList, getContext());
-                    errorList.clear();
                 }
                 return true;
             case R.id.menu_back:

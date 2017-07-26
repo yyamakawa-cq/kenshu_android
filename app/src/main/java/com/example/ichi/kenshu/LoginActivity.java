@@ -17,7 +17,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +30,9 @@ public class LoginActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                editTextEmail.selectAll();
                 String email = editTextEmail.getText().toString();
-                editTextPassword.selectAll();
                 String password = editTextPassword.getText().toString();
+                List<String> errorList = new ArrayList<>();
                 ShowErrorDialogUtil showErrorDialogUtil = new ShowErrorDialogUtil();
 
                 if (TextUtils.isEmpty(email)) {
@@ -45,7 +43,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (errorList.size() > 0 ) {
                     showErrorDialogUtil.showError(errorList, LoginActivity.this);
-                    errorList.clear();
                 } else {
                 Intent intent = new Intent(getApplication(), MainActivity.class);
                 startActivity(intent);

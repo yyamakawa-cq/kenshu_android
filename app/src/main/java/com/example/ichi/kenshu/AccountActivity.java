@@ -16,7 +16,6 @@ public class AccountActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
-    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +37,7 @@ public class AccountActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        List<String> errorList = new ArrayList<>();
         switch (item.getItemId()) {
             case R.id.menu_close:
                 finish();
@@ -59,7 +59,6 @@ public class AccountActivity extends AppCompatActivity {
                 }
                 if (errorList.size() > 0 ) {
                     showErrorDialogUtil.showError(errorList,this);
-                    errorList.clear();
                 }
                 return true;
             default:
