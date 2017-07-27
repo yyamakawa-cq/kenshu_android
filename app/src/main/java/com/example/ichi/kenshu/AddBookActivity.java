@@ -52,7 +52,7 @@ public class AddBookActivity extends AppCompatActivity {
         textViewPurchaseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PurchaseDatePickerUtil datePicker = new PurchaseDatePickerUtil();
+                PurchaseDatePickerFragment datePicker = new PurchaseDatePickerFragment();
                 datePicker.show(getFragmentManager(), "datePicker");
             }
         });
@@ -87,7 +87,7 @@ public class AddBookActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    ErrorDialogUtil errorDialog = ErrorDialogUtil.newInstance(errorList);
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 }
                 return true;

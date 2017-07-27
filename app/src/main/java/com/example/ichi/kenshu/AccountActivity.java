@@ -55,7 +55,7 @@ public class AccountActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
                 }
                 if (errorList.size() > 0 ) {
-                    ErrorDialogUtil errorDialog = ErrorDialogUtil.newInstance(errorList);
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 }
                 return true;

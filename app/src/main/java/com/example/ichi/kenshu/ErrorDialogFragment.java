@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ErrorDialogUtil extends DialogFragment{
+public class ErrorDialogFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         ArrayList error = getArguments().getStringArrayList("error");
@@ -22,11 +22,11 @@ public class ErrorDialogUtil extends DialogFragment{
         return errorDialog.create();
     }
 
-    public static ErrorDialogUtil newInstance(List<String> error) {
+    public static ErrorDialogFragment newInstance(List<String> error) {
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("error", (ArrayList<String>) error);
-        ErrorDialogUtil errorDialogUtil = new ErrorDialogUtil();
-        errorDialogUtil.setArguments(bundle);
-        return errorDialogUtil;
+        ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
+        errorDialogFragment.setArguments(bundle);
+        return errorDialogFragment;
     }
 }
