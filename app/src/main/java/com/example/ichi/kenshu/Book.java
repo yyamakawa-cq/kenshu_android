@@ -39,7 +39,7 @@ public class Book {
         return title;
     }
 
-    public String getPrice(){
+    public String getPrice() {
         return price;
     }
 

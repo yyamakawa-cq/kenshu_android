@@ -13,6 +13,12 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
@@ -44,8 +50,9 @@ public class LoginActivity extends AppCompatActivity {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
-                Intent intent = new Intent(getApplication(), MainActivity.class);
-                startActivity(intent);
+                    login(email,password);
+                    //Intent intent = new Intent(getApplication(), MainActivity.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -58,5 +65,26 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         AppLaunchChecker.onActivityCreate(this);
+    }
+
+    private void login(String email, String password){
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiInterface.END_POINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface service = retrofit.create(ApiInterface.class);
+
+        service.login(new User(email, password)).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                Log.d("api", "success");
+                //Intent intent = new Intent(getApplication(), MainActivity.class);
+                //startActivity(intent);
+            }
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                Log.d("api", "fail");
+            }
+        });
     }
 }
