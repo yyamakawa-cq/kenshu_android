@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/include_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_padding"
+    android:paddingRight="@dimen/activity_padding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/activity_padding"
+        android:paddingRight="@dimen/activity_padding"
+        android:paddingTop="@dimen/activity_padding">
+
+        <ImageView
+            android:id="@+id/imageView_upload"
+            android:layout_width="@dimen/thumbnail_size_width"
+            android:layout_height="@dimen/thumbnail_size_height"
+            android:layout_weight="3"
+            android:maxHeight="@dimen/thumbnail_size_height"
+            android:maxWidth="@dimen/thumbnail_size_width"
+            android:minHeight="@dimen/thumbnail_size_height"
+            android:minWidth="@dimen/thumbnail_size_width"
+            app:srcCompat="@mipmap/ic_launcher"
+            android:contentDescription="@string/sample_book_name" />
+
+        <Button
+            android:id="@+id/button_upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="@string/button_upload" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView_titleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin_top"
+        android:text="@string/form_name" />
+
+    <EditText
+        android:id="@+id/editText_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/textView_titlePrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin_top"
+        android:text="@string/form_price" />
+
+    <EditText
+        android:id="@+id/editText_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        tools:ignore="LabelFor" />
+
+    <TextView
+        android:id="@+id/textView_titlePurchaseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/activity_margin_top"
+        android:text="@string/form_purchase_date" />
+
+    <TextView
+        android:id="@+id/textView_purchaseDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/purchase_date_margin"
+        android:layout_marginRight="@dimen/purchase_date_margin"
+        android:background="@drawable/underline"
+        android:paddingBottom="@dimen/purchase_date_padding_bottom"
+        android:paddingTop="@dimen/purchase_date_padding_bottom"
+        android:textSize="@dimen/purchase_date_text_size" />
+
+</LinearLayout>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_save"
+        android:enabled="true"
+        android:title="@string/menu_save"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/menu_close"
+        android:enabled="true"
+        android:icon="@drawable/ic_close_black_24dp"
+        android:title="@string/menu_close"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
+</menu>
