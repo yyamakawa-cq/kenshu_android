@@ -95,7 +95,8 @@ public class EditBookFragment extends Fragment {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    ErrorDialogUtil.showError(errorList, getContext());
+                    ErrorDialogUtil errorDialog = ErrorDialogUtil.newInstance(errorList);
+                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
                 }
                 return true;
             case R.id.menu_back:

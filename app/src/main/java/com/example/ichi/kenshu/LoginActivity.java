@@ -41,7 +41,8 @@ public class LoginActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                    ErrorDialogUtil.showError(errorList, LoginActivity.this);
+                    ErrorDialogUtil errorDialog = ErrorDialogUtil.newInstance(errorList);
+                    errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
                 Intent intent = new Intent(getApplication(), MainActivity.class);
                 startActivity(intent);

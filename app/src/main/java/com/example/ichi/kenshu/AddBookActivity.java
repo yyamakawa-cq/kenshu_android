@@ -87,7 +87,8 @@ public class AddBookActivity extends AppCompatActivity {
                     errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
                 }
                 if (errorList.size() > 0 ) {
-                   ErrorDialogUtil.showError(errorList, this);
+                    ErrorDialogUtil errorDialog = ErrorDialogUtil.newInstance(errorList);
+                    errorDialog.show(getFragmentManager(), "errorDialog");
                 }
                 return true;
             default:
