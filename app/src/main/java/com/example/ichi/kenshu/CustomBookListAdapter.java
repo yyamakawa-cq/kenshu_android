@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class CustomBookListAdapter extends ArrayAdapter<Book> {
@@ -31,13 +33,13 @@ public class CustomBookListAdapter extends ArrayAdapter<Book> {
         Book item = books.get(position);
 
         ImageView imageView = view.findViewById(R.id.imageView_book);
-        imageView.setImageBitmap(item.getImageView());
+        Glide.with(view).load(item.getImage()).into(imageView);
 
         TextView title = view.findViewById(R.id.textView_name);
-        title.setText(item.getTitle());
+        title.setText(item.getName());
 
         TextView price = view.findViewById(R.id.textView_price);
-        price.setText(item.getPrice());
+        price.setText(String.valueOf(item.getPrice()));
 
         TextView purchaseDate = view.findViewById(R.id.textView_purchaseDate);
         purchaseDate.setText(item.getPurchaseDate());

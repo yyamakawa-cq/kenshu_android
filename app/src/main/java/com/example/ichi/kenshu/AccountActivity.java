@@ -83,6 +83,7 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("api","success");
+                User user = response.body();
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {

@@ -5,11 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class User {
 
-    public User(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
     @Expose
     @SerializedName("email")
     private String email;
@@ -25,6 +20,12 @@ public class User {
     @Expose
     @SerializedName("request_token")
     private String request_token;
+
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 
     public String getEmail() {
         return email;

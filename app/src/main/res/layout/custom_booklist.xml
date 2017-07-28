@@ -10,16 +10,17 @@
 
     <ImageView
         android:id="@+id/imageView_book"
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/thumbnail_size_height"
         android:layout_height="wrap_content"
         android:layout_weight="0"
-        app:srcCompat="@android:drawable/ic_menu_gallery"
-        android:contentDescription="@string/sample_book_name" />
+        android:contentDescription="@string/sample_book_name"
+        app:srcCompat="@android:drawable/ic_menu_gallery" />
 
     <RelativeLayout
         android:id="@+id/container_textViews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_margin_left"
         android:layout_weight="1">
 
         <TextView

@@ -78,8 +78,9 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("api", "success");
-                //Intent intent = new Intent(getApplication(), MainActivity.class);
-                //startActivity(intent);
+                User user = response.body();
+                Intent intent = new Intent(getApplication(), MainActivity.class);
+                startActivity(intent);
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {

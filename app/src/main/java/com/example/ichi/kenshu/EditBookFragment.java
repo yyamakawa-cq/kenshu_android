@@ -130,7 +130,7 @@ public class EditBookFragment extends Fragment {
         }
     }
 
-    public static EditBookFragment newInstance(int position) {
+    public static EditBookFragment newInstance(Integer position, View view) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGS_POSITION, position);
         EditBookFragment editBookFragment = new EditBookFragment();

@@ -2,8 +2,6 @@ package com.example.ichi.kenshu;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -34,9 +32,10 @@ public class BookListFragment extends Fragment {
 
         ListView listView = view.findViewById(R.id.ListView_Books);
         List<Book> listItems = new ArrayList<>();
+
         for(int i = 0; i < 10; i++) {
-            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-            Book item = new Book(bmp, "title" + String.valueOf(i), "price" + String.valueOf(i), "PurchaseDate" + String.valueOf(i));
+            String imageUrl = "http://cat.sc/pic/wp-content/uploads/2016/10/cat-sc-neko_02422-360x360.jpg";
+            Book item = new Book(imageUrl, "title" + String.valueOf(i), 100+i, "PurchaseDate" + String.valueOf(i));
             listItems.add(item);
         }
 
@@ -48,7 +47,7 @@ public class BookListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content, EditBookFragment.newInstance(position));
+                transaction.replace(R.id.content, EditBookFragment.newInstance(position, view));
 
                 transaction.addToBackStack(null);
                 transaction.commit();

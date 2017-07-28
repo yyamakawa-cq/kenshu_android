@@ -3,6 +3,7 @@ package com.example.ichi.kenshu;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.PATCH;
@@ -30,6 +31,7 @@ public interface ApiInterface {
     @POST("/login")
     Call<User> login(@Body User user);
 
+    @FormUrlEncoded
     @POST("/books")
     Call<Book> addBook(
             @Field("name") String name,
@@ -38,6 +40,7 @@ public interface ApiInterface {
             @Field("image_data") String image_data,
             @Field("user_id") Integer user_id);
 
+    @FormUrlEncoded
     @PATCH("/books/{id}")
     Call<Book> editBook(
             @Path("id") Integer id,
