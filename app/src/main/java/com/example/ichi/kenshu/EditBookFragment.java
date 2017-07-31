@@ -170,7 +170,8 @@ public class EditBookFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface service = retrofit.create(ApiInterface.class);
-        service.addBook(book.getName(), book.getPrice(),book.getPurchaseDate(),book.getImage(),90).enqueue(new Callback<Book>() {
+        //book_idを変数にあとで変更
+        service.editBook(01,book.getName(), book.getPrice(),book.getPurchaseDate(),book.getImage()).enqueue(new Callback<Book>() {
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {
                 Log.d("api", "success");

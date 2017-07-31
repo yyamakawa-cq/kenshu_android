@@ -142,6 +142,7 @@ public class AddBookActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface service = retrofit.create(ApiInterface.class);
+        //user_idをあとで変数に変更
         service.addBook(book.getName(), book.getPrice(),book.getPurchaseDate(),book.getImage(),90).enqueue(new Callback<Book>() {
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {

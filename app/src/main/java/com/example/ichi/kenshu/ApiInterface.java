@@ -19,17 +19,16 @@ public interface ApiInterface {
             "Content-type: application/json",
             //"Authorization: "
     })
-
-    @GET("/books")
-    Call<Book> getBook(
-            @Query("page") String page,
-            @Query("user_id") Integer user_id);
-
     @POST("/signup")
     Call<User> createUser(@Body User user);
 
     @POST("/login")
     Call<User> login(@Body User user);
+
+    @GET("/books")
+    Call<Book> getBook(
+            @Query("page") String page,
+            @Query("user_id") Integer user_id);
 
     @FormUrlEncoded
     @POST("/books")
