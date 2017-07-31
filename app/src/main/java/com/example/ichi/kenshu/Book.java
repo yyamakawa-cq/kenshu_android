@@ -3,7 +3,9 @@ package com.example.ichi.kenshu;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Book {
+import java.io.Serializable;
+
+public class Book implements Serializable {
 
     @Expose
     @SerializedName("title")

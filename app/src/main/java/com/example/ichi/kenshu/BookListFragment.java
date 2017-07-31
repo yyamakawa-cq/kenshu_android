@@ -31,11 +31,11 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ListView listView = view.findViewById(R.id.ListView_Books);
-        List<Book> listItems = new ArrayList<>();
+        final List<Book> listItems = new ArrayList<>();
 
         for(int i = 0; i < 10; i++) {
             String imageUrl = "http://cat.sc/pic/wp-content/uploads/2016/10/cat-sc-neko_02422-360x360.jpg";
-            Book item = new Book(imageUrl, "title" + String.valueOf(i), 100+i, "PurchaseDate" + String.valueOf(i));
+            Book item = new Book(imageUrl, "title" + String.valueOf(i), 100+i, "2017/05/0" + String.valueOf(i));
             listItems.add(item);
         }
 
@@ -45,9 +45,10 @@ public class BookListFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Book item = (Book)parent.getItemAtPosition(position);
 
                 FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content, EditBookFragment.newInstance(position, view));
+                transaction.replace(R.id.content, EditBookFragment.newInstance(position, item));
 
                 transaction.addToBackStack(null);
                 transaction.commit();

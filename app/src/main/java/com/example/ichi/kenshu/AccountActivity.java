@@ -72,6 +72,7 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
+    //あとでクラスファイルをつくって移動
     private void signUp(String email, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)

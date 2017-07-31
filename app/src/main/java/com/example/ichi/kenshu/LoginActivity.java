@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         AppLaunchChecker.onActivityCreate(this);
     }
 
+    //あとでクラスファイルをつくって移動
     private void login(String email, String password){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)

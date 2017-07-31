@@ -135,8 +135,8 @@ public class AddBookActivity extends AppCompatActivity {
         }
     }
 
+    //あとでクラスファイルをつくって移動
     private void addBook(Book book) {
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -153,29 +153,9 @@ public class AddBookActivity extends AppCompatActivity {
                 Log.d("api", "fail");
             }
         });
-/*
-        Call<Book> call = service.addBook(
-                book.getName(),
-                book.getPrice(),
-                book.getPurchaseDate(),
-                book.getImage(),
-                90);//user_id あとで変数にする
-*/
-/*
-        call.enqueue(new Callback<Book>() {
-            @Override
-            public void onResponse(Call<Book> call, Response<Book> response) {
-                Log.d("api", "success");
-            }
-
-            @Override
-            public void onFailure(Call<Book> call, Throwable t) {
-                Log.d("api", "fail");
-            }
-        });
-*/
     }
 
+    //あとでクラスファイルをつくって移動
     private String convertToString(ImageView imageView) {
         Bitmap bitmapImage = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
         Bitmap resizedImage = Bitmap.createScaledBitmap(bitmapImage, 100, 100, false);
