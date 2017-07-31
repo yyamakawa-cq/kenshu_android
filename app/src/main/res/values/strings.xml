@@ -12,6 +12,7 @@
     <string name="button_upload">画像添付</string>
     <string name="button_login">ログイン</string>
     <string name="button_ok">OK</string>
+    <string name="button_load">もっと読み込む</string>
     <string name="form_name">書籍名</string>
     <string name="form_price">金額</string>
     <string name="form_purchase_date">購入日</string>

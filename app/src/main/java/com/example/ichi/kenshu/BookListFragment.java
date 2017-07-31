@@ -31,6 +31,8 @@ public class BookListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         ListView listView = view.findViewById(R.id.ListView_Books);
+        listView.addFooterView(getFooterView());
+
         final List<Book> listItems = new ArrayList<>();
 
         for(int i = 0; i < 10; i++) {
@@ -75,4 +77,11 @@ public class BookListFragment extends Fragment {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    public View getFooterView() {
+        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        return layoutInflater.inflate(R.layout.listview_footer,null);
+    }
+
+
 }
