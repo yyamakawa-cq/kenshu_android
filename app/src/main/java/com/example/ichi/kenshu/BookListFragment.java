@@ -72,10 +72,12 @@ public class BookListFragment extends Fragment {
             }
         });
 
-        Button buttonLoad = (Button) getActivity().findViewById(R.id.button_load);
+        Button buttonLoad = getActivity().findViewById(R.id.button_load);
         buttonLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Integer loadLimit = getOffset() + LIMIT;
+                getBook(getOffset(),loadLimit);
             }
         });
     }

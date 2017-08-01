@@ -14,12 +14,12 @@ public class User {
     private String password;
 
     @Expose
-    @SerializedName("use_id")
-    private Integer user_id;
+    @SerializedName("user_id")
+    private Integer user_id = null;
 
     @Expose
     @SerializedName("request_token")
-    private String request_token;
+    private String request_token = null;
 
 
     public User(String email, String password) {

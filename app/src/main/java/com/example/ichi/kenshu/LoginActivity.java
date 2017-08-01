@@ -1,6 +1,8 @@
 package com.example.ichi.kenshu;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.AppLaunchChecker;
 import android.support.v7.app.AppCompatActivity;
@@ -51,8 +53,6 @@ public class LoginActivity extends AppCompatActivity {
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
                     login(email,password);
-                    //Intent intent = new Intent(getApplication(), MainActivity.class);
-                    //startActivity(intent);
                 }
             }
         });
@@ -79,7 +79,17 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("api", "success");
-                User user = response.body();
+
+                SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                String oldRequestToken = data.getString("token","none");
+                String newRequestToken = response.body().getRequestToken();
+                if (!TextUtils.equals(oldRequestToken, newRequestToken)) {
+                    SharedPreferences.Editor editor = data.edit();
+                    editor.putInt("user_id",response.body().getUserId());
+                    editor.putString("token", response.body().getRequestToken());
+                    editor.apply();
+                }
+
                 Intent intent = new Intent(getApplication(), MainActivity.class);
                 startActivity(intent);
             }

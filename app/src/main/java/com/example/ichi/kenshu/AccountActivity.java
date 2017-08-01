@@ -1,5 +1,7 @@
 package com.example.ichi.kenshu;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -64,7 +66,11 @@ public class AccountActivity extends AppCompatActivity {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
-                    signUp(email, password);
+                    SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                    if (data.getInt("user_id", 0) == 0) {
+                        signUp(email, password);
+                    }
+                    finish();
                 }
                 return true;
             default:
@@ -84,7 +90,11 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("api","success");
-                User user = response.body();
+                SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = data.edit();
+                editor.putInt("user_id",response.body().getUserId());
+                editor.putString("token", response.body().getRequestToken());
+                editor.apply();
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
