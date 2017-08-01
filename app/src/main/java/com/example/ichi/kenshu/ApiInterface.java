@@ -17,7 +17,6 @@ public interface ApiInterface {
     @Headers({
             "Accept: application/json",
             "Content-type: application/json",
-            //"Authorization: "
     })
     @POST("/signup")
     Call<User> createUser(@Body User user);

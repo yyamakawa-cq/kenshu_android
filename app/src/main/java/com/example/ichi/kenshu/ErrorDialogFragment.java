@@ -16,7 +16,7 @@ public class ErrorDialogFragment extends DialogFragment{
         ArrayList error = getArguments().getStringArrayList("error");
         String messages = TextUtils.join("\n",error);
         AlertDialog.Builder errorDialog = new AlertDialog.Builder(getActivity())
-                .setTitle(getString(R.string.validation_error))
+                .setTitle(getString(R.string.title_error))
                 .setPositiveButton(getString(R.string.button_ok), null)
                 .setMessage(messages);
         return errorDialog.create();

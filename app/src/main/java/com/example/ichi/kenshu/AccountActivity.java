@@ -69,8 +69,9 @@ public class AccountActivity extends AppCompatActivity {
                     SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
                     if (data.getInt("user_id", 0) == 0) {
                         signUp(email, password);
+                    } else {
+                        finish();
                     }
-                    finish();
                 }
                 return true;
             default:
@@ -78,7 +79,7 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    //あとでクラスファイルをつくって移動
+    //あとでクラスファイルをつくって移動ここから
     private void signUp(String email, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
@@ -87,19 +88,33 @@ public class AccountActivity extends AppCompatActivity {
         ApiInterface service = retrofit.create(ApiInterface.class);
 
         service.createUser(new User(email,password)).enqueue(new Callback<User>() {
+            List<String> errorList = new ArrayList<>();
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                Log.d("api","success");
-                SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = data.edit();
-                editor.putInt("user_id",response.body().getUserId());
-                editor.putString("token", response.body().getRequestToken());
-                editor.apply();
+                if (response.isSuccessful()) {
+                    Log.d("api","success");
+                    SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = data.edit();
+                    editor.putInt("user_id",response.body().getUserId());
+                    editor.putString("token", response.body().getRequestToken());
+                    editor.apply();
+                    finish();
+                } else {
+                    Log.d("api","error");
+                    errorList.add(getString(R.string.api_error));
+                    errorList.add("Error Code:" + String.valueOf(response.code()));
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                    errorDialog.show(getFragmentManager(), "errorDialog");
+                }
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("api", "fail");
+                errorList.add(getString(R.string.api_error));
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                errorDialog.show(getFragmentManager(), "errorDialog");
             }
         });
     }
+    //あとでクラスファイルをつくって移動ここまで
 }
