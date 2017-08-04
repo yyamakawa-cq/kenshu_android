@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Book implements Serializable {
 
     @Expose
-    @SerializedName("title")
+    @SerializedName("name")
     private String name;
 
     @Expose
@@ -16,25 +16,38 @@ public class Book implements Serializable {
     private Integer price;
 
     @Expose
-    @SerializedName("purchaseDate")
+    @SerializedName("purchase_date")
     private String purchaseDate;
-
-    private String image;
 
     @Expose
     @SerializedName("image_data")
     private String imageData;
 
     @Expose
-    @SerializedName("imageUrl")
+    @SerializedName("image_url")
     private String imageUrl;
 
+    @Expose
+    @SerializedName("user_id")
+    private Integer userId;
 
-    public Book(String image, String name, Integer price, String purchaseDate) {
-        this.image = image;
+    @Expose
+    @SerializedName("id")
+    private Integer bookId;
+
+    public Book(String name, Integer price, String purchaseDate, String imageData,Integer id) {
         this.name = name;
         this.price = price;
         this.purchaseDate = purchaseDate;
+        this.imageData = imageData;
+        this.userId = id;
+    }
+
+    public Book(String name, Integer price, String purchaseDate, String imageUrl) {
+        this.name = name;
+        this.price = price;
+        this.purchaseDate = purchaseDate;
+        this.imageUrl = imageUrl;
     }
 
 
@@ -63,10 +76,11 @@ public class Book implements Serializable {
     }
 
     public String getImage() {
-        return image;
+        return imageUrl;
     }
 
     public void setImage(String image) {
-        this.image = image;
+        this.imageUrl = image;
     }
+
 }

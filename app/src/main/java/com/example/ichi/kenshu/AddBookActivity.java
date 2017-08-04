@@ -2,7 +2,9 @@ package com.example.ichi.kenshu;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -23,7 +25,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import retrofit2.Call;
@@ -99,10 +103,10 @@ public class AddBookActivity extends AppCompatActivity {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
-                    String imageData = convertToString(imageViewUpload);
+                    String imageData = ConverterImageUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
                     Integer intPrice = Integer.valueOf(price);
-                    Book book = new Book(imageData, name, intPrice, purchaseDate);
+                    Book book = new Book(name, intPrice, purchaseDate,imageData);
                     addBook(book);
                 }
                 return true;
@@ -142,26 +146,55 @@ public class AddBookActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface service = retrofit.create(ApiInterface.class);
-        //user_idをあとで変数に変更
-        service.addBook(book.getName(), book.getPrice(),book.getPurchaseDate(),book.getImage(),90).enqueue(new Callback<Book>() {
+        SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        String requestToken = data.getString("token","none");
+        Integer userId = data.getInt("user_id", 0);
+        //Book addBook = new Book(book.getName(), book.getPrice(), book.getPurchaseDate(), book.getImage(), userId);
+
+        service.addBook(requestToken,book.getName(), book.getPrice(), book.getPurchaseDate(), book.getImage(),userId).enqueue(new Callback<Book>() {
+            List<String> errorList = new ArrayList<>();
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {
-                Log.d("api", "success");
+                if (response.isSuccessful()) {
+                    Log.d("api", "success");
+                    finish();
+                } else {
+                    Log.d("api","error");
+                    errorList.add(getString(R.string.api_error));
+                    errorList.add("Error Code:" + String.valueOf(response.code()));
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                    errorDialog.show(getFragmentManager(), "errorDialog");
+                }
             }
 
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
                 Log.d("api", "fail");
+                errorList.add(getString(R.string.api_error));
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                errorDialog.show(getFragmentManager(), "errorDialog");
             }
         });
     }
 
     //あとでクラスファイルをつくって移動
+    /*
     private String convertToString(ImageView imageView) {
         Bitmap bitmapImage = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
+
         Bitmap resizedImage = Bitmap.createScaledBitmap(bitmapImage, 100, 100, false);
+
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         resizedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        return byteArrayOutputStream.toString();
+        byte[] bytes = byteArrayOutputStream.toByteArray();
+        try {
+            String byteUtf8 = new String(bytes,"UTF-8");
+
+            //String base64 = android.util.Base64.encodeToString(byteUtf8, android.util.Base64.DEFAULT);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return base64;
     }
+    */
 }

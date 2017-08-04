@@ -119,7 +119,7 @@ public class EditBookFragment extends Fragment {
                     String imageData = convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
                     Integer intPrice = Integer.valueOf(price);
-                    Book book = new Book(imageData, name, intPrice, purchaseDate);
+                    Book book = new Book(name, intPrice, purchaseDate,imageData);
                     editBook(book);
                 }
                 return true;
