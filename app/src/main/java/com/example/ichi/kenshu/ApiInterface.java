@@ -2,8 +2,6 @@ package com.example.ichi.kenshu;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
@@ -39,7 +37,7 @@ public interface ApiInterface {
             @Query("user_id") Integer user_id
     );
 
-    @FormUrlEncoded
+    //@FormUrlEncoded
     @Headers({
             "Accept: application/json",
             "Content-type: application/json"
@@ -47,25 +45,30 @@ public interface ApiInterface {
     @POST("/books")
     Call<Book> addBook(
             @Header("Authorization") String request_token,
-            //@Body Book book
-            @Field(value = "name", encoded = true) String name,
-            @Field(value = "price", encoded = true) int price,
-            @Field(value = "purchase_date", encoded = true) String purchase_date,
-            @Field(value = "image_data", encoded = true) String image_data,
-            @Field(value = "user_id", encoded = true) int user_id
+            @Body Book book
+            /*
+            @Field("name") String name,
+            @Field("price") int price,
+            @Field("purchase_date") String purchase_date,
+            @Field("image_data") String image_data,
+            @Field("user_id") int user_id
+            */
     );
 
+    //@FormUrlEncoded
     @Headers({
             "Accept: application/json",
             "Content-type: application/json"
     })
-    @FormUrlEncoded
     @PATCH("/books/{id}")
     Call<Book> editBook(
             @Path("id") Integer id,
+            @Body Book book
+            /*
             @Field("name") String name,
             @Field("price") Integer price,
             @Field("purchase_date") String purchase_date,
             @Field("image_data") String image_data
+            */
     );
 }

@@ -43,13 +43,12 @@ public class Book implements Serializable {
         this.userId = id;
     }
 
-    public Book(String name, Integer price, String purchaseDate, String imageUrl) {
+    public Book(String name, Integer price, String purchaseDate, String imageData) {
         this.name = name;
         this.price = price;
         this.purchaseDate = purchaseDate;
-        this.imageUrl = imageUrl;
+        this.imageData = imageData;
     }
-
 
     public String getName() {
         return name;
@@ -75,12 +74,35 @@ public class Book implements Serializable {
         this.purchaseDate = purchaseDate;
     }
 
-    public String getImage() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImage(String image) {
-        this.imageUrl = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
+    }
 }

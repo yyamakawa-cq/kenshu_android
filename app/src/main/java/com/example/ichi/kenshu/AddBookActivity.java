@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -21,13 +20,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
 
 import retrofit2.Call;
@@ -103,11 +99,10 @@ public class AddBookActivity extends AppCompatActivity {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
-                    String imageData = ConverterImageUtil.convertToString(imageViewUpload);
+                    String imageData = ImageConverterUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
                     Integer intPrice = Integer.valueOf(price);
-                    Book book = new Book(name, intPrice, purchaseDate,imageData);
-                    addBook(book);
+                    addBook(name, intPrice, purchaseDate,imageData);
                 }
                 return true;
             default:
@@ -140,7 +135,7 @@ public class AddBookActivity extends AppCompatActivity {
     }
 
     //あとでクラスファイルをつくって移動
-    private void addBook(Book book) {
+    private void addBook(String name, Integer price, String purchaseDate, String imageData) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -149,9 +144,9 @@ public class AddBookActivity extends AppCompatActivity {
         SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
         String requestToken = data.getString("token","none");
         Integer userId = data.getInt("user_id", 0);
-        //Book addBook = new Book(book.getName(), book.getPrice(), book.getPurchaseDate(), book.getImage(), userId);
+        Book addBook = new Book(name, price, purchaseDate, imageData, userId);
 
-        service.addBook(requestToken,book.getName(), book.getPrice(), book.getPurchaseDate(), book.getImage(),userId).enqueue(new Callback<Book>() {
+        service.addBook(requestToken,addBook).enqueue(new Callback<Book>() {
             List<String> errorList = new ArrayList<>();
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {
@@ -176,25 +171,4 @@ public class AddBookActivity extends AppCompatActivity {
             }
         });
     }
-
-    //あとでクラスファイルをつくって移動
-    /*
-    private String convertToString(ImageView imageView) {
-        Bitmap bitmapImage = ((BitmapDrawable)imageView.getDrawable()).getBitmap();
-
-        Bitmap resizedImage = Bitmap.createScaledBitmap(bitmapImage, 100, 100, false);
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        resizedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] bytes = byteArrayOutputStream.toByteArray();
-        try {
-            String byteUtf8 = new String(bytes,"UTF-8");
-
-            //String base64 = android.util.Base64.encodeToString(byteUtf8, android.util.Base64.DEFAULT);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return base64;
-    }
-    */
 }

@@ -33,7 +33,7 @@ public class CustomBookListAdapter extends ArrayAdapter<Book> {
         Book item = books.get(position);
 
         ImageView imageView = view.findViewById(R.id.imageView_book);
-        Glide.with(view).load(item.getImage()).into(imageView);
+        Glide.with(view).load(item.getImageUrl()).into(imageView);
 
         TextView title = view.findViewById(R.id.textView_name);
         title.setText(item.getName());
@@ -42,7 +42,7 @@ public class CustomBookListAdapter extends ArrayAdapter<Book> {
         price.setText(String.valueOf(item.getPrice()));
 
         TextView purchaseDate = view.findViewById(R.id.textView_purchaseDate);
-        purchaseDate.setText(item.getPurchaseDate());
+        purchaseDate.setText(DateFormatterUtil.changeDateFormat(item.getPurchaseDate()));
 
         return view;
     }
