@@ -24,6 +24,7 @@ public class AccountActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
+    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,29 +50,19 @@ public class AccountActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_save:
-                List<String> errorList = new ArrayList<>();
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPass = editTextConfirmPassword.getText().toString();
-
-                if (TextUtils.isEmpty(email)) {
-                    errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(password)) {
-                    errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
-                } else if (!TextUtils.equals(password, confirmPass)) {
-                    errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
-                }
-                if (errorList.size() > 0) {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getFragmentManager(), "errorDialog");
-                } else {
+                if (validateValues(email, password, confirmPass)) {
                     SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
                     if (data.getInt("user_id", 0) == 0) {
                         signUp(email, password);
-                    } else {
+                   } else {
                         finish();
                     }
+                } else {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                    errorDialog.show(getFragmentManager(), "errorDialog");
                 }
                 return true;
             default:
@@ -79,42 +70,60 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    //あとでクラスファイルをつくって移動ここから
+    private boolean validateValues(String email, String password, String confirmPass) {
+        errorList.clear();
+        if (TextUtils.isEmpty(email)) {
+            errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
+        }
+        if (TextUtils.isEmpty(password)) {
+            errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
+        } else if (!TextUtils.equals(password, confirmPass)) {
+            errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
+        }
+        return errorList.size() == 0;
+    }
+
     private void signUp(String email, String password) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface service = retrofit.create(ApiInterface.class);
-
         service.createUser(new User(email,password)).enqueue(new Callback<User>() {
-            List<String> errorList = new ArrayList<>();
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     Log.d("api","success");
-                    SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = data.edit();
-                    editor.putInt("user_id",response.body().getUserId());
-                    editor.putString("token", response.body().getRequestToken());
-                    editor.apply();
+                    saveUserId(response.body().getUserId(),response.body().getRequestToken());
                     finish();
                 } else {
                     Log.d("api","error");
-                    errorList.add(getString(R.string.api_error));
-                    errorList.add("Error Code:" + String.valueOf(response.code()));
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getFragmentManager(), "errorDialog");
+                    showApiError(response.code());
                 }
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("api", "fail");
-                errorList.add(getString(R.string.api_error));
-                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                errorDialog.show(getFragmentManager(), "errorDialog");
+                showApiError(null);
             }
         });
     }
-    //あとでクラスファイルをつくって移動ここまで
+
+    private void saveUserId(Integer userId, String token) {
+        SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = data.edit();
+        editor.putInt("user_id", userId);
+        editor.putString("token", token);
+        editor.apply();
+    }
+
+    private void showApiError(Integer errorCode) {
+        List<String> errorText = new ArrayList<>();
+        errorText.add(getString(R.string.api_error));
+        if (errorCode != null) {
+            errorText.add("Error Code:" + String.valueOf(errorCode));
+        }
+        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);
+        errorDialog.show(getFragmentManager(), "errorDialog");
+    }
 }

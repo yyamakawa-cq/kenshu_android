@@ -37,6 +37,7 @@ public class AddBookActivity extends AppCompatActivity {
     private EditText editTextName;
     private EditText editTextPrice;
     private TextView textViewPurchaseDate;
+    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,28 +82,17 @@ public class AddBookActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_save:
-                List<String> errorList = new ArrayList<>();
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-
-                if (TextUtils.isEmpty(name)) {
-                    errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(price)) {
-                    errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(date)) {
-                    errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
-                }
-                if (errorList.size() > 0 ) {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getFragmentManager(), "errorDialog");
-                } else {
+                if (validateValues(name, price, date)) {
                     String imageData = ImageConverterUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
                     Integer intPrice = Integer.valueOf(price);
                     addBook(name, intPrice, purchaseDate,imageData);
+                } else {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                    errorDialog.show(getFragmentManager(), "errorDialog");
                 }
                 return true;
             default:
@@ -134,20 +124,32 @@ public class AddBookActivity extends AppCompatActivity {
         }
     }
 
-    //あとでクラスファイルをつくって移動
+    private boolean validateValues(String name, String price, String date){
+        errorList.clear();
+        if (TextUtils.isEmpty(name)) {
+            errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
+        }
+        if (TextUtils.isEmpty(price)) {
+            errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
+        }
+        if (TextUtils.isEmpty(date)) {
+            errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
+        }
+        return errorList.size() == 0;
+    }
+
     private void addBook(String name, Integer price, String purchaseDate, String imageData) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(ApiInterface.END_POINT)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        ApiInterface service = retrofit.create(ApiInterface.class);
         SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
         String requestToken = data.getString("token","none");
         Integer userId = data.getInt("user_id", 0);
         Book addBook = new Book(name, price, purchaseDate, imageData, userId);
 
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiInterface.END_POINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface service = retrofit.create(ApiInterface.class);
         service.addBook(requestToken,addBook).enqueue(new Callback<Book>() {
-            List<String> errorList = new ArrayList<>();
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {
                 if (response.isSuccessful()) {
@@ -155,20 +157,24 @@ public class AddBookActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Log.d("api","error");
-                    errorList.add(getString(R.string.api_error));
-                    errorList.add("Error Code:" + String.valueOf(response.code()));
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getFragmentManager(), "errorDialog");
+                    showApiError(response.code());
                 }
             }
-
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
                 Log.d("api", "fail");
-                errorList.add(getString(R.string.api_error));
-                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                errorDialog.show(getFragmentManager(), "errorDialog");
+                showApiError(null);
             }
         });
+    }
+
+    private void showApiError(Integer errorCode) {
+        List<String> errorText = new ArrayList<>();
+        errorText.add(getString(R.string.api_error));
+        if (errorCode != null) {
+            errorText.add("Error Code:" + String.valueOf(errorCode));
+        }
+        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);
+        errorDialog.show(getFragmentManager(), "errorDialog");
     }
 }

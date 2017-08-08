@@ -1,5 +1,6 @@
 package com.example.ichi.kenshu;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +42,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                List<String> errorList = new ArrayList<>();
-
-                if (TextUtils.isEmpty(email)) {
-                    errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(password)) {
-                    errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
-                }
-                if (errorList.size() > 0 ) {
+                Activity activity = getParent();
+                if (validateValues(email, password)) {
+                    login(email, password);
+                } else {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
-                } else {
-                    login(email,password);
                 }
             }
         });
@@ -67,7 +62,17 @@ public class LoginActivity extends AppCompatActivity {
         AppLaunchChecker.onActivityCreate(this);
     }
 
-    //あとでクラスファイルをつくって移動ここから
+    private boolean validateValues(String email, String password) {
+        errorList.clear();
+        if (TextUtils.isEmpty(email)) {
+            errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
+        }
+        if (TextUtils.isEmpty(password)) {
+            errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
+        }
+        return errorList.size() == 0;
+    }
+
     private void login(String email, final String password){
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
@@ -76,38 +81,45 @@ public class LoginActivity extends AppCompatActivity {
         ApiInterface service = retrofit.create(ApiInterface.class);
 
         service.login(new User(email, password)).enqueue(new Callback<User>() {
-            List<String> errorList = new ArrayList<>();
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     Log.d("api", "success");
-                    SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
-                    String oldRequestToken = data.getString("token","none");
-                    String newRequestToken = response.body().getRequestToken();
-                    if (!TextUtils.equals(oldRequestToken, newRequestToken)) {
-                        SharedPreferences.Editor editor = data.edit();
-                        editor.putInt("user_id",response.body().getUserId());
-                        editor.putString("token", response.body().getRequestToken());
-                        editor.apply();
-                    }
+                    updateUserId(response.body().getUserId(), response.body().getRequestToken());
                     Intent intent = new Intent(getApplication(), MainActivity.class);
                     startActivity(intent);
                 } else {
                     Log.d("api","error");
-                    errorList.add(getString(R.string.api_error));
-                    errorList.add("Error Code:" + String.valueOf(response.code()));
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getFragmentManager(), "errorDialog");
+                    showApiError(response.code());
                 }
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("api", "fail");
-                errorList.add(getString(R.string.api_error));
-                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                errorDialog.show(getFragmentManager(), "errorDialog");
+                showApiError(null);
             }
         });
     }
-    //あとでクラスファイル作って移動ここまで
+
+    private void updateUserId(Integer userId, String token) {
+        SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        String oldRequestToken = data.getString("token","none");
+        Integer oldUserId = data.getInt("user_id", 0);
+        if (!TextUtils.equals(oldRequestToken, token) || !oldUserId.equals(userId)) {
+            SharedPreferences.Editor editor = data.edit();
+            editor.putInt("user_id",userId);
+            editor.putString("token", token);
+            editor.apply();
+        }
+    }
+
+    private void showApiError(Integer errorCode) {
+        List<String> errorText = new ArrayList<>();
+        errorText.add(getString(R.string.api_error));
+        if (errorCode != null) {
+            errorText.add("Error Code:" + String.valueOf(errorCode));
+        }
+        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);
+        errorDialog.show(getFragmentManager(), "errorDialog");
+    }
 }

@@ -93,33 +93,16 @@ public class BookListFragment extends Fragment {
         return offset;
     }
 
-    public void setBookItem(List items) {
-        CustomBookListAdapter adapter = new CustomBookListAdapter(getContext(), R.layout.custom_booklist, items);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Book item = (Book)parent.getItemAtPosition(position);
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.content, EditBookFragment.newInstance(position, item));
-
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-    }
-
-    //あとでクラスファイル作って移動
     private void getBook(Integer offset, Integer limit) {
         String page = (String.valueOf(offset)) + "-" + (String.valueOf(limit));
+        SharedPreferences data = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        Integer userId = data.getInt("user_id", 0);
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface service = retrofit.create(ApiInterface.class);
-        SharedPreferences data = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        Integer userId = data.getInt("user_id", 0);
         service.getBook(page,userId).enqueue(new Callback<BookResponse>() {
             @Override
             public void onResponse(Call<BookResponse> call, Response<BookResponse> response) {
@@ -131,14 +114,41 @@ public class BookListFragment extends Fragment {
                     }
                 } else {
                     Log.d("api", "error");
+                    showApiError(response.code());
                 }
             }
-
             @Override
             public void onFailure(Call<BookResponse> call, Throwable t) {
                 Log.d("api", "fail");
+                showApiError(null);
             }
-
         });
+    }
+
+    public void setBookItem(List items) {
+        CustomBookListAdapter adapter = new CustomBookListAdapter(getContext(), R.layout.custom_booklist, items);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Book item = (Book)parent.getItemAtPosition(position);
+
+                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                transaction.replace(R.id.content, EditBookFragment.newInstance(position, item));
+
+                transaction.addToBackStack("list");
+                transaction.commit();
+            }
+        });
+    }
+
+    private void showApiError(Integer errorCode) {
+        List<String> errorList = new ArrayList<>();
+        errorList.add(getString(R.string.api_error));
+        if (errorCode != null) {
+            errorList.add("Error Code:" + String.valueOf(errorCode));
+        }
+        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+        errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
     }
 }

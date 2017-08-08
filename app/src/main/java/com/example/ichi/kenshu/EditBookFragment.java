@@ -44,6 +44,7 @@ public class EditBookFragment extends Fragment {
     private EditText editTextName;
     private EditText editTextPrice;
     private TextView textViewPurchaseDate;
+    private List<String> errorList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -99,28 +100,17 @@ public class EditBookFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_save:
-                List<String> errorList = new ArrayList<>();
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-
-                if (TextUtils.isEmpty(name)) {
-                    errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(price)) {
-                    errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(date)) {
-                    errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
-                }
-                if (errorList.size() > 0 ) {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
-                } else {
+                if (validateValues(name, price, date)) {
                     String imageData = ImageConverterUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
                     Integer intPrice = Integer.valueOf(price);
                     editBook(bookId, name, intPrice, purchaseDate, imageData);
+                } else {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
                 }
                 return true;
             case R.id.menu_back:
@@ -163,7 +153,20 @@ public class EditBookFragment extends Fragment {
         return editBookFragment;
     }
 
-    //あとでクラスファイルを作って移動
+    private boolean validateValues(String name, String price, String date) {
+        errorList.clear();
+        if (TextUtils.isEmpty(name)) {
+            errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
+        }
+        if (TextUtils.isEmpty(price)) {
+            errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
+        }
+        if (TextUtils.isEmpty(date)) {
+            errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
+        }
+        return errorList.size() == 0;
+    }
+
     private void editBook(Integer bookId, String name, Integer price, String purchaseDate, String imageData) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
@@ -172,7 +175,6 @@ public class EditBookFragment extends Fragment {
         ApiInterface service = retrofit.create(ApiInterface.class);
         Book book = new Book(name, price, purchaseDate, imageData);
         service.editBook(bookId,book).enqueue(new Callback<Book>() {
-            List<String> errorList = new ArrayList<>();
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {
                 if (response.isSuccessful()) {
@@ -180,21 +182,24 @@ public class EditBookFragment extends Fragment {
                     getFragmentManager().popBackStack();
                 } else {
                     Log.d("api","error");
-                    errorList.add(getString(R.string.api_error));
-                    errorList.add("Error Code:" + String.valueOf(response.code()));
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
+                    showApiError(response.code());
                 }
             }
-
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
                 Log.d("api", "fail");
-                errorList.add(getString(R.string.api_error));
-                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
+                showApiError(null);
             }
         });
     }
 
+    private void showApiError(Integer errorCode) {
+        List<String> errorText = new ArrayList<>();
+        errorText.add(getString(R.string.api_error));
+        if (errorCode != null) {
+            errorText.add("Error Code:" + String.valueOf(errorCode));
+        }
+        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);
+        errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
+    }
 }
