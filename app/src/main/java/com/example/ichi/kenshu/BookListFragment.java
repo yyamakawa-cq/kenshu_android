@@ -31,6 +31,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class BookListFragment extends Fragment {
 
     private static final Integer LIMIT = 500;
+    private static final String USER_DATA = "UserData";
+    private static final String USER_ID = "user_id";
     private ListView listView;
 
     @Override
@@ -95,8 +97,8 @@ public class BookListFragment extends Fragment {
 
     private void getBook(Integer offset, Integer limit) {
         String page = (String.valueOf(offset)) + "-" + (String.valueOf(limit));
-        SharedPreferences data = getActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        Integer userId = data.getInt("user_id", 0);
+        SharedPreferences data = getActivity().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        Integer userId = data.getInt(USER_ID, 0);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)

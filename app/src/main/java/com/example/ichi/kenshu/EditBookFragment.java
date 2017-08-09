@@ -3,7 +3,9 @@ package com.example.ichi.kenshu;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -39,6 +41,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class EditBookFragment extends Fragment {
 
     private static final String ARGS_POSITION = "args_position";
+    private static final String USER_DATA = "UserData";
+    private static final String REQUEST_TOKEN = "request_token";
     private Integer bookId;
     private ImageView imageViewUpload;
     private EditText editTextName;
@@ -103,14 +107,14 @@ public class EditBookFragment extends Fragment {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                if (validateValues(name, price, date)) {
+                if (!validateValues(name, price, date)) {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
+                } else {
                     String imageData = ImageConverterUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
                     Integer intPrice = Integer.valueOf(price);
                     editBook(bookId, name, intPrice, purchaseDate, imageData);
-                } else {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
                 }
                 return true;
             case R.id.menu_back:
@@ -168,13 +172,16 @@ public class EditBookFragment extends Fragment {
     }
 
     private void editBook(Integer bookId, String name, Integer price, String purchaseDate, String imageData) {
+        SharedPreferences data = getActivity().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        String requestToken = data.getString(REQUEST_TOKEN,"none");
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         ApiInterface service = retrofit.create(ApiInterface.class);
         Book book = new Book(name, price, purchaseDate, imageData);
-        service.editBook(bookId,book).enqueue(new Callback<Book>() {
+        service.editBook(bookId,requestToken,book).enqueue(new Callback<Book>() {
             @Override
             public void onResponse(Call<Book> call, Response<Book> response) {
                 if (response.isSuccessful()) {

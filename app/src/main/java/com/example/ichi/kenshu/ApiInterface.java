@@ -63,6 +63,7 @@ public interface ApiInterface {
     @PATCH("/books/{id}")
     Call<Book> editBook(
             @Path("id") Integer id,
+            @Header("Authorization") String request_token,
             @Body Book book
             /*
             @Field("name") String name,

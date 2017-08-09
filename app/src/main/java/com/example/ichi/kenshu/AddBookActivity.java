@@ -33,6 +33,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddBookActivity extends AppCompatActivity {
+    private static final String USER_DATA = "UserData";
+    private static final String USER_ID = "user_id";
+    private static final String REQUEST_TOKEN = "request_token";
     private ImageView imageViewUpload;
     private EditText editTextName;
     private EditText editTextPrice;
@@ -85,14 +88,14 @@ public class AddBookActivity extends AppCompatActivity {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                if (validateValues(name, price, date)) {
+                if (!validateValues(name, price, date)) {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                    errorDialog.show(getFragmentManager(), "errorDialog");
+                } else {
                     String imageData = ImageConverterUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
                     Integer intPrice = Integer.valueOf(price);
                     addBook(name, intPrice, purchaseDate,imageData);
-                } else {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-                    errorDialog.show(getFragmentManager(), "errorDialog");
                 }
                 return true;
             default:
@@ -139,9 +142,9 @@ public class AddBookActivity extends AppCompatActivity {
     }
 
     private void addBook(String name, Integer price, String purchaseDate, String imageData) {
-        SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        String requestToken = data.getString("token","none");
-        Integer userId = data.getInt("user_id", 0);
+        SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        String requestToken = data.getString(REQUEST_TOKEN,"none");
+        Integer userId = data.getInt(USER_ID, 0);
         Book addBook = new Book(name, price, purchaseDate, imageData, userId);
 
         Retrofit retrofit = new Retrofit.Builder()

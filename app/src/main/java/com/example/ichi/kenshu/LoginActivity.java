@@ -1,6 +1,5 @@
 package com.example.ichi.kenshu;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -23,7 +22,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private static final String USER_DATA = "UserData";
+    private static final String USER_ID = "user_id";
+    private static final String REQUEST_TOKEN = "request_token";
     private EditText editTextEmail;
     private EditText editTextPassword;
     private List<String> errorList = new ArrayList<>();
@@ -42,12 +43,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                Activity activity = getParent();
-                if (validateValues(email, password)) {
-                    login(email, password);
-                } else {
+                if (!validateValues(email, password)) {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
+                } else {
+                    login(email, password);
                 }
             }
         });
@@ -102,13 +102,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUserId(Integer userId, String token) {
-        SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
-        String oldRequestToken = data.getString("token","none");
-        Integer oldUserId = data.getInt("user_id", 0);
+        SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        String oldRequestToken = data.getString(REQUEST_TOKEN,"none");
+        Integer oldUserId = data.getInt(USER_ID, 0);
         if (!TextUtils.equals(oldRequestToken, token) || !oldUserId.equals(userId)) {
             SharedPreferences.Editor editor = data.edit();
-            editor.putInt("user_id",userId);
-            editor.putString("token", token);
+            editor.putInt(USER_ID, userId);
+            editor.putString(REQUEST_TOKEN, token);
             editor.apply();
         }
     }

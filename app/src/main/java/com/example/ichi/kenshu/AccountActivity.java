@@ -21,6 +21,9 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AccountActivity extends AppCompatActivity {
+    private static final String USER_DATA = "UserData";
+    private static final String USER_ID = "user_id";
+    private static final String REQUEST_TOKEN = "request_token";
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
@@ -53,16 +56,16 @@ public class AccountActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPass = editTextConfirmPassword.getText().toString();
-                if (validateValues(email, password, confirmPass)) {
-                    SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
-                    if (data.getInt("user_id", 0) == 0) {
-                        signUp(email, password);
-                   } else {
-                        finish();
-                    }
-                } else {
+                if (!validateValues(email, password, confirmPass)) {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
                     errorDialog.show(getFragmentManager(), "errorDialog");
+                } else {
+                    SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+                    if (data.getInt(USER_ID, 0) != 0) {
+                        finish();
+                    } else {
+                        signUp(email, password);
+                    }
                 }
                 return true;
             default:
@@ -110,10 +113,10 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void saveUserId(Integer userId, String token) {
-        SharedPreferences data = getSharedPreferences("UserData", Context.MODE_PRIVATE);
+        SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
-        editor.putInt("user_id", userId);
-        editor.putString("token", token);
+        editor.putInt(USER_ID, userId);
+        editor.putString(REQUEST_TOKEN, token);
         editor.apply();
     }
 
