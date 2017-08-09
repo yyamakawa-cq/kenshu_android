@@ -43,6 +43,7 @@ public class EditBookFragment extends Fragment {
     private static final String ARGS_POSITION = "args_position";
     private static final String USER_DATA = "UserData";
     private static final String REQUEST_TOKEN = "request_token";
+    private static final String BOOK = "book";
     private Integer bookId;
     private ImageView imageViewUpload;
     private EditText editTextName;
@@ -66,7 +67,7 @@ public class EditBookFragment extends Fragment {
         imageViewUpload = view.findViewById(R.id.imageView_upload);
 
         Bundle bundle = getArguments();
-        Book book = (Book)bundle.getSerializable("book");
+        Book book = (Book)bundle.getSerializable(BOOK);
         bookId = book.getBookId();
         editTextName.setText(book.getName());
         editTextPrice.setText(String.valueOf(book.getPrice()));
@@ -151,7 +152,7 @@ public class EditBookFragment extends Fragment {
     public static EditBookFragment newInstance(Integer position, Book item) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGS_POSITION, position);
-        bundle.putSerializable("book", item);
+        bundle.putSerializable(BOOK, item);
         EditBookFragment editBookFragment = new EditBookFragment();
         editBookFragment.setArguments(bundle);
         return editBookFragment;
