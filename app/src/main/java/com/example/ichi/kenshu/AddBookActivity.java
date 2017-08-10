@@ -9,7 +9,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +22,6 @@ import android.widget.TextView;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -84,7 +82,7 @@ public class AddBookActivity extends AppCompatActivity {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                List<String> errors = validateValues(name, price, date);
+                List<String> errors = FormValidationUtil.validateBookValues(name, price, date);
                 if (!errors.isEmpty()) {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getFragmentManager(), "errorDialog");
@@ -122,20 +120,6 @@ public class AddBookActivity extends AppCompatActivity {
                 imageViewUpload.setImageBitmap(bitmap);
             }
         }
-    }
-
-    private List<String> validateValues(String name, String price, String date){
-        List<String> errorText = new ArrayList<>();
-        if (TextUtils.isEmpty(name)) {
-            errorText.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
-        }
-        if (TextUtils.isEmpty(price)) {
-            errorText.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
-        }
-        if (TextUtils.isEmpty(date)) {
-            errorText.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
-        }
-        return errorText;
     }
 
     private void addBook(String name, int price, String purchaseDate, String imageData) {

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                List<String> errors = validateValues(email, password);
+                List<String> errors = FormValidationUtil.validateAccountValues(email, password);
                 if (!errors.isEmpty()) {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getFragmentManager(), "errorDialog");
@@ -57,17 +56,6 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         AppLaunchChecker.onActivityCreate(this);
-    }
-
-    private List<String> validateValues(String email, String password) {
-        List<String> errorText = new ArrayList<>();
-        if (TextUtils.isEmpty(email)) {
-            errorText.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
-        }
-        if (TextUtils.isEmpty(password)) {
-            errorText.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
-        }
-        return errorText;
     }
 
     private void login(String email, final String password){

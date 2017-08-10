@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -52,7 +50,7 @@ public class AccountActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPass = editTextConfirmPassword.getText().toString();
-                List<String> errors = validateValues(email, password, confirmPass);
+                List<String> errors = FormValidationUtil.validateAccountValues(email, password, confirmPass);
                 if (!errors.isEmpty()) {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getFragmentManager(), "errorDialog");
@@ -68,19 +66,6 @@ public class AccountActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-    private List<String> validateValues(String email, String password, String confirmPass) {
-        List<String> errorText = new ArrayList<>();
-        if (TextUtils.isEmpty(email)) {
-            errorText.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
-        }
-        if (TextUtils.isEmpty(password)) {
-            errorText.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
-        } else if (!TextUtils.equals(password, confirmPass)) {
-            errorText.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
-        }
-        return errorText;
     }
 
     private void signUp(String email, String password) {

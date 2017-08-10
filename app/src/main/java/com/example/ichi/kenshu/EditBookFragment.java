@@ -11,7 +11,6 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -29,7 +28,6 @@ import com.bumptech.glide.Glide;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -104,7 +102,7 @@ public class EditBookFragment extends Fragment {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                List<String> errors = validateValues(name, price, date);
+                List<String> errors = FormValidationUtil.validateBookValues(name, price, date);
                 if (!errors.isEmpty()) {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
@@ -153,20 +151,6 @@ public class EditBookFragment extends Fragment {
         EditBookFragment editBookFragment = new EditBookFragment();
         editBookFragment.setArguments(bundle);
         return editBookFragment;
-    }
-
-    private List<String> validateValues(String name, String price, String date) {
-        List<String> errorText = new ArrayList<>();
-        if (TextUtils.isEmpty(name)) {
-            errorText.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
-        }
-        if (TextUtils.isEmpty(price)) {
-            errorText.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
-        }
-        if (TextUtils.isEmpty(date)) {
-            errorText.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
-        }
-        return errorText;
     }
 
     private void editBook(int bookId, String name, int price, String purchaseDate, String imageData) {
