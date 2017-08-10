@@ -187,24 +187,16 @@ public class EditBookFragment extends Fragment {
                     getFragmentManager().popBackStack();
                 } else {
                     Log.d("api","error");
-                    showApiError(response.code());
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code(), getContext());
+                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
                 }
             }
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
                 Log.d("api", "fail");
-                showApiError(0);
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1, getContext());
+                errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
             }
         });
-    }
-
-    private void showApiError(int errorCode) {
-        List<String> errorText = new ArrayList<>();
-        errorText.add(getString(R.string.api_error));
-        if (errorCode != 0) {
-            errorText.add("Error Code:" + String.valueOf(errorCode));
-        }
-        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);
-        errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
     }
 }

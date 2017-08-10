@@ -113,13 +113,15 @@ public class BookListFragment extends Fragment {
                     }
                 } else {
                     Log.d("api", "error");
-                    showApiError(response.code());
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code(), getContext());
+                    errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
                 }
             }
             @Override
             public void onFailure(Call<BookResponse> call, Throwable t) {
                 Log.d("api", "fail");
-                showApiError(0);
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1, getContext());
+                errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
             }
         });
     }
@@ -139,15 +141,5 @@ public class BookListFragment extends Fragment {
                 transaction.commit();
             }
         });
-    }
-
-    private void showApiError(int errorCode) {
-        List<String> errorList = new ArrayList<>();
-        errorList.add(getString(R.string.api_error));
-        if (errorCode != 0) {
-            errorList.add("Error Code:" + String.valueOf(errorCode));
-        }
-        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
-        errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
     }
 }

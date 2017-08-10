@@ -98,13 +98,15 @@ public class AccountActivity extends AppCompatActivity {
                     finish();
                 } else {
                     Log.d("api","error");
-                    showApiError(response.code());
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code(),getApplicationContext());
+                    errorDialog.show(getFragmentManager(), "errorDialog");
                 }
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("api", "fail");
-                showApiError(0);
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1,getApplicationContext());
+                errorDialog.show(getFragmentManager(), "errorDialog");
             }
         });
     }
@@ -115,15 +117,5 @@ public class AccountActivity extends AppCompatActivity {
         editor.putInt(SharedPreferencesConstants.USER_ID, userId);
         editor.putString(SharedPreferencesConstants.REQUEST_TOKEN, token);
         editor.apply();
-    }
-
-    private void showApiError(int errorCode) {
-        List<String> errorText = new ArrayList<>();
-        errorText.add(getString(R.string.api_error));
-        if (errorCode != 0) {
-            errorText.add("Error Code:" + String.valueOf(errorCode));
-        }
-        ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);
-        errorDialog.show(getFragmentManager(), "errorDialog");
     }
 }
