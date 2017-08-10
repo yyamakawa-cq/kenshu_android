@@ -14,15 +14,12 @@ import java.util.List;
 public class ErrorDialogFragment extends DialogFragment{
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        List<String> errorArray;
-        String error;
         String messages = null;
         if (getArguments().get("errorList") != null) {
-            errorArray = getArguments().getStringArrayList("errorList");
+            List<String> errorArray = getArguments().getStringArrayList("errorList");
             messages = TextUtils.join("\n", errorArray);
         } else if (getArguments().get("error") != null) {
-            error = getArguments().getString("error");
-            messages = error;
+            messages = getArguments().getString("error");
         }
         AlertDialog.Builder errorDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(getString(R.string.title_error))
