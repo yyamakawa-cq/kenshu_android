@@ -75,14 +75,14 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Log.d("api","error");
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code(), getApplicationContext());
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code());
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 }
             }
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("api", "fail");
-                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1, getApplicationContext());
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1);
                 errorDialog.show(getFragmentManager(), "errorDialog");
             }
         });

@@ -171,14 +171,14 @@ public class EditBookFragment extends Fragment {
                     getFragmentManager().popBackStack();
                 } else {
                     Log.d("api","error");
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code(), getContext());
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code());
                     errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
                 }
             }
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
                 Log.d("api", "fail");
-                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1, getContext());
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1);
                 errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
             }
         });

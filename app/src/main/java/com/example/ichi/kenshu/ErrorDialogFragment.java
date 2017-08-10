@@ -3,7 +3,7 @@ package com.example.ichi.kenshu;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.TextUtils;
 
@@ -36,9 +36,9 @@ public class ErrorDialogFragment extends DialogFragment{
         return errorDialogFragment;
     }
 
-    public static ErrorDialogFragment newInstance(int errorCode, Context context) {
+    public static ErrorDialogFragment newInstance(int errorCode) {
         Bundle bundle = new Bundle();
-        bundle.putString("error", context.getString(R.string.api_error) + ":"+ String.valueOf(errorCode));
+        bundle.putString("error", Resources.getSystem().getString(R.string.api_error) + ":"+ String.valueOf(errorCode));
         ErrorDialogFragment errorDialogFragment = new ErrorDialogFragment();
         errorDialogFragment.setArguments(bundle);
         return errorDialogFragment;
