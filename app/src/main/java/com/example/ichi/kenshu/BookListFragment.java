@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class BookListFragment extends Fragment {
 
-    private static final Integer LIMIT = 500;
+    private static final int LIMIT = 500;
     private static final String USER_DATA = "UserData";
     private static final String USER_ID = "user_id";
     private ListView listView;
@@ -54,7 +54,7 @@ public class BookListFragment extends Fragment {
         buttonLoad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Integer loadLimit = getOffset() + LIMIT;
+                int loadLimit = getOffset() + LIMIT;
                 getBook(getOffset(),loadLimit);
             }
         });
@@ -85,8 +85,8 @@ public class BookListFragment extends Fragment {
         return layoutInflater.inflate(R.layout.listview_footer,null);
     }
 
-    public Integer getOffset() {
-        Integer offset ;
+    public int getOffset() {
+        int offset ;
         if (listView.getCount() != 0) {
             offset = listView.getCount();
         } else {
@@ -95,10 +95,10 @@ public class BookListFragment extends Fragment {
         return offset;
     }
 
-    private void getBook(Integer offset, Integer limit) {
+    private void getBook(int offset, int limit) {
         String page = (String.valueOf(offset)) + "-" + (String.valueOf(limit));
         SharedPreferences data = getActivity().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-        Integer userId = data.getInt(USER_ID, 0);
+        int userId = data.getInt(USER_ID, 0);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)
@@ -122,7 +122,7 @@ public class BookListFragment extends Fragment {
             @Override
             public void onFailure(Call<BookResponse> call, Throwable t) {
                 Log.d("api", "fail");
-                showApiError(null);
+                showApiError(0);
             }
         });
     }
@@ -144,10 +144,10 @@ public class BookListFragment extends Fragment {
         });
     }
 
-    private void showApiError(Integer errorCode) {
+    private void showApiError(int errorCode) {
         List<String> errorList = new ArrayList<>();
         errorList.add(getString(R.string.api_error));
-        if (errorCode != null) {
+        if (errorCode != 0) {
             errorList.add("Error Code:" + String.valueOf(errorCode));
         }
         ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);

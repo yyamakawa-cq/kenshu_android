@@ -94,7 +94,7 @@ public class AddBookActivity extends AppCompatActivity {
                 } else {
                     String imageData = ImageConverterUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
-                    Integer intPrice = Integer.valueOf(price);
+                    int intPrice = Integer.valueOf(price);
                     addBook(name, intPrice, purchaseDate,imageData);
                 }
                 return true;
@@ -141,10 +141,10 @@ public class AddBookActivity extends AppCompatActivity {
         return errorText;
     }
 
-    private void addBook(String name, Integer price, String purchaseDate, String imageData) {
+    private void addBook(String name, int price, String purchaseDate, String imageData) {
         SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         String requestToken = data.getString(REQUEST_TOKEN,"none");
-        Integer userId = data.getInt(USER_ID, 0);
+        int userId = data.getInt(USER_ID, 0);
         Book addBook = new Book(name, price, purchaseDate, imageData, userId);
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -166,15 +166,15 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
                 Log.d("api", "fail");
-                showApiError(null);
+                showApiError(0);
             }
         });
     }
 
-    private void showApiError(Integer errorCode) {
+    private void showApiError(int errorCode) {
         List<String> errorText = new ArrayList<>();
         errorText.add(getString(R.string.api_error));
-        if (errorCode != null) {
+        if (errorCode != 0) {
             errorText.add("Error Code:" + String.valueOf(errorCode));
         }
         ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);

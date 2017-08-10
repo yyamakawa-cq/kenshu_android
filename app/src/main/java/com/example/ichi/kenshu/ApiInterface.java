@@ -34,7 +34,7 @@ public interface ApiInterface {
     @GET("/books")
     Call<BookResponse> getBook(
             @Query("page") String page,
-            @Query("user_id") Integer user_id
+            @Query("user_id") int user_id
     );
 
     @Headers({

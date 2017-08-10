@@ -13,7 +13,7 @@ public class Book implements Serializable {
 
     @Expose
     @SerializedName("price")
-    private Integer price;
+    private int price;
 
     @Expose
     @SerializedName("purchase_date")
@@ -29,13 +29,13 @@ public class Book implements Serializable {
 
     @Expose
     @SerializedName("user_id")
-    private Integer userId;
+    private int userId;
 
     @Expose
     @SerializedName("id")
-    private Integer bookId;
+    private int bookId;
 
-    public Book(String name, Integer price, String purchaseDate, String imageData,Integer id) {
+    public Book(String name, int price, String purchaseDate, String imageData,int id) {
         this.name = name;
         this.price = price;
         this.purchaseDate = purchaseDate;
@@ -43,7 +43,7 @@ public class Book implements Serializable {
         this.userId = id;
     }
 
-    public Book(String name, Integer price, String purchaseDate, String imageData) {
+    public Book(String name, int price, String purchaseDate, String imageData) {
         this.name = name;
         this.price = price;
         this.purchaseDate = purchaseDate;
@@ -58,7 +58,7 @@ public class Book implements Serializable {
         this.name = name;
     }
 
-    public Integer getPrice() {
+    public int getPrice() {
         return price;
     }
 
@@ -90,7 +90,7 @@ public class Book implements Serializable {
         this.imageData = imageData;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return userId;
     }
 
@@ -98,7 +98,7 @@ public class Book implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getBookId() {
+    public int getBookId() {
         return bookId;
     }
 

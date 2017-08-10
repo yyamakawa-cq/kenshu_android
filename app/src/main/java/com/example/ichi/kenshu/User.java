@@ -15,11 +15,11 @@ public class User {
 
     @Expose
     @SerializedName("user_id")
-    private Integer user_id = null;
+    private int user_id;
 
     @Expose
     @SerializedName("request_token")
-    private String request_token = null;
+    private String request_token;
 
 
     public User(String email, String password) {
@@ -43,11 +43,19 @@ public class User {
         this.password = password;
     }
 
-    public Integer getUserId() {
+    public int getUserId() {
         return user_id;
+    }
+
+    public  void setUserId(int userId){
+        this.user_id = userId;
     }
 
     public String getRequestToken() {
         return request_token;
+    }
+
+    public void setRequestToken(String requestToken) {
+        this.request_token = requestToken;
     }
 }

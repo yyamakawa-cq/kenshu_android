@@ -107,12 +107,12 @@ public class AccountActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("api", "fail");
-                showApiError(null);
+                showApiError(0);
             }
         });
     }
 
-    private void saveUserId(Integer userId, String token) {
+    private void saveUserId(int userId, String token) {
         SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
         editor.putInt(USER_ID, userId);
@@ -120,10 +120,10 @@ public class AccountActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private void showApiError(Integer errorCode) {
+    private void showApiError(int errorCode) {
         List<String> errorText = new ArrayList<>();
         errorText.add(getString(R.string.api_error));
-        if (errorCode != null) {
+        if (errorCode != 0) {
             errorText.add("Error Code:" + String.valueOf(errorCode));
         }
         ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);

@@ -44,7 +44,7 @@ public class EditBookFragment extends Fragment {
     private static final String USER_DATA = "UserData";
     private static final String REQUEST_TOKEN = "request_token";
     private static final String BOOK = "book";
-    private Integer bookId;
+    private int bookId;
     private ImageView imageViewUpload;
     private EditText editTextName;
     private EditText editTextPrice;
@@ -114,7 +114,7 @@ public class EditBookFragment extends Fragment {
                 } else {
                     String imageData = ImageConverterUtil.convertToString(imageViewUpload);
                     String purchaseDate = date.replaceAll("/","-");
-                    Integer intPrice = Integer.valueOf(price);
+                    int intPrice = Integer.valueOf(price);
                     editBook(bookId, name, intPrice, purchaseDate, imageData);
                 }
                 return true;
@@ -149,7 +149,7 @@ public class EditBookFragment extends Fragment {
         }
     }
 
-    public static EditBookFragment newInstance(Integer position, Book item) {
+    public static EditBookFragment newInstance(int position, Book item) {
         Bundle bundle = new Bundle();
         bundle.putInt(ARGS_POSITION, position);
         bundle.putSerializable(BOOK, item);
@@ -172,7 +172,7 @@ public class EditBookFragment extends Fragment {
         return errorText;
     }
 
-    private void editBook(Integer bookId, String name, Integer price, String purchaseDate, String imageData) {
+    private void editBook(int bookId, String name, int price, String purchaseDate, String imageData) {
         SharedPreferences data = getActivity().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
         String requestToken = data.getString(REQUEST_TOKEN,"none");
 
@@ -196,15 +196,15 @@ public class EditBookFragment extends Fragment {
             @Override
             public void onFailure(Call<Book> call, Throwable t) {
                 Log.d("api", "fail");
-                showApiError(null);
+                showApiError(0);
             }
         });
     }
 
-    private void showApiError(Integer errorCode) {
+    private void showApiError(int errorCode) {
         List<String> errorText = new ArrayList<>();
         errorText.add(getString(R.string.api_error));
-        if (errorCode != null) {
+        if (errorCode != 0) {
             errorText.add("Error Code:" + String.valueOf(errorCode));
         }
         ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorText);
