@@ -37,7 +37,6 @@ public interface ApiInterface {
             @Query("user_id") Integer user_id
     );
 
-    //@FormUrlEncoded
     @Headers({
             "Accept: application/json",
             "Content-type: application/json"
@@ -46,16 +45,8 @@ public interface ApiInterface {
     Call<Book> addBook(
             @Header("Authorization") String request_token,
             @Body Book book
-            /*
-            @Field("name") String name,
-            @Field("price") int price,
-            @Field("purchase_date") String purchase_date,
-            @Field("image_data") String image_data,
-            @Field("user_id") int user_id
-            */
     );
 
-    //@FormUrlEncoded
     @Headers({
             "Accept: application/json",
             "Content-type: application/json"
@@ -65,11 +56,5 @@ public interface ApiInterface {
             @Path("id") Integer id,
             @Header("Authorization") String request_token,
             @Body Book book
-            /*
-            @Field("name") String name,
-            @Field("price") Integer price,
-            @Field("purchase_date") String purchase_date,
-            @Field("image_data") String image_data
-            */
     );
 }
