@@ -124,7 +124,7 @@ public class BookListFragment extends Fragment {
         });
     }
 
-    public void setBookItem(List items) {
+    public void setBookItem(List<Book> items) {
         CustomBookListAdapter adapter = new CustomBookListAdapter(getContext(), R.layout.custom_booklist, items);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
