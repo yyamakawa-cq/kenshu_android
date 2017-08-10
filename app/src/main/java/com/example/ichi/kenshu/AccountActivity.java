@@ -21,9 +21,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AccountActivity extends AppCompatActivity {
-    private static final String USER_DATA = "UserData";
-    private static final String USER_ID = "user_id";
-    private static final String REQUEST_TOKEN = "request_token";
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
@@ -60,8 +57,8 @@ public class AccountActivity extends AppCompatActivity {
                     ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
-                    SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-                    if (data.getInt(USER_ID, 0) != 0) {
+                    SharedPreferences data = getSharedPreferences(SharedPreferencesConstants.USER_DATA, Context.MODE_PRIVATE);
+                    if (data.getInt(SharedPreferencesConstants.USER_ID, 0) != 0) {
                         finish();
                     } else {
                         signUp(email, password);
@@ -113,10 +110,10 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void saveUserId(int userId, String token) {
-        SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
+        SharedPreferences data = getSharedPreferences(SharedPreferencesConstants.USER_DATA, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = data.edit();
-        editor.putInt(USER_ID, userId);
-        editor.putString(REQUEST_TOKEN, token);
+        editor.putInt(SharedPreferencesConstants.USER_ID, userId);
+        editor.putString(SharedPreferencesConstants.REQUEST_TOKEN, token);
         editor.apply();
     }
 

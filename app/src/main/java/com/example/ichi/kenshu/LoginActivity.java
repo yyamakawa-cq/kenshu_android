@@ -22,9 +22,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
-    private static final String USER_DATA = "UserData";
-    private static final String USER_ID = "user_id";
-    private static final String REQUEST_TOKEN = "request_token";
     private EditText editTextEmail;
     private EditText editTextPassword;
 
@@ -102,13 +99,13 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUserId(int userId, String token) {
-        SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-        String oldRequestToken = data.getString(REQUEST_TOKEN,"none");
-        Integer oldUserId = data.getInt(USER_ID, 0);
+        SharedPreferences data = getSharedPreferences(SharedPreferencesConstants.USER_DATA, Context.MODE_PRIVATE);
+        String oldRequestToken = data.getString(SharedPreferencesConstants.REQUEST_TOKEN,"none");
+        Integer oldUserId = data.getInt(SharedPreferencesConstants.USER_ID, 0);
         if (!TextUtils.equals(oldRequestToken, token) || !oldUserId.equals(userId)) {
             SharedPreferences.Editor editor = data.edit();
-            editor.putInt(USER_ID, userId);
-            editor.putString(REQUEST_TOKEN, token);
+            editor.putInt(SharedPreferencesConstants.USER_ID, userId);
+            editor.putString(SharedPreferencesConstants.REQUEST_TOKEN, token);
             editor.apply();
         }
     }

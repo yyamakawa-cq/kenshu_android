@@ -39,10 +39,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class EditBookFragment extends Fragment {
-
     private static final String ARGS_POSITION = "args_position";
-    private static final String USER_DATA = "UserData";
-    private static final String REQUEST_TOKEN = "request_token";
     private static final String BOOK = "book";
     private int bookId;
     private ImageView imageViewUpload;
@@ -173,8 +170,8 @@ public class EditBookFragment extends Fragment {
     }
 
     private void editBook(int bookId, String name, int price, String purchaseDate, String imageData) {
-        SharedPreferences data = getActivity().getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-        String requestToken = data.getString(REQUEST_TOKEN,"none");
+        SharedPreferences data = getActivity().getSharedPreferences(SharedPreferencesConstants.USER_DATA, Context.MODE_PRIVATE);
+        String requestToken = data.getString(SharedPreferencesConstants.REQUEST_TOKEN,"none");
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiInterface.END_POINT)

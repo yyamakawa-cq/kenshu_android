@@ -33,9 +33,6 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddBookActivity extends AppCompatActivity {
-    private static final String USER_DATA = "UserData";
-    private static final String USER_ID = "user_id";
-    private static final String REQUEST_TOKEN = "request_token";
     private ImageView imageViewUpload;
     private EditText editTextName;
     private EditText editTextPrice;
@@ -142,9 +139,9 @@ public class AddBookActivity extends AppCompatActivity {
     }
 
     private void addBook(String name, int price, String purchaseDate, String imageData) {
-        SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
-        String requestToken = data.getString(REQUEST_TOKEN,"none");
-        int userId = data.getInt(USER_ID, 0);
+        SharedPreferences data = getSharedPreferences(SharedPreferencesConstants.USER_DATA, Context.MODE_PRIVATE);
+        String requestToken = data.getString(SharedPreferencesConstants.REQUEST_TOKEN,"none");
+        int userId = data.getInt(SharedPreferencesConstants.USER_ID, 0);
         Book addBook = new Book(name, price, purchaseDate, imageData, userId);
 
         Retrofit retrofit = new Retrofit.Builder()
