@@ -75,7 +75,6 @@ public class AccountActivity extends AppCompatActivity {
 
     private List<String> validateValues(String email, String password, String confirmPass) {
         List<String> errorText = new ArrayList<>();
-        errorText.clear();
         if (TextUtils.isEmpty(email)) {
             errorText.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
         }

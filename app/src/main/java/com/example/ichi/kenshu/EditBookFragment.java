@@ -160,7 +160,6 @@ public class EditBookFragment extends Fragment {
 
     private List<String> validateValues(String name, String price, String date) {
         List<String> errorText = new ArrayList<>();
-        errorText.clear();
         if (TextUtils.isEmpty(name)) {
             errorText.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
         }
