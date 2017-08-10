@@ -62,7 +62,7 @@ public class Book implements Serializable {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
@@ -94,7 +94,7 @@ public class Book implements Serializable {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
@@ -102,7 +102,7 @@ public class Book implements Serializable {
         return bookId;
     }
 
-    public void setBookId(Integer bookId) {
+    public void setBookId(int bookId) {
         this.bookId = bookId;
     }
 }
