@@ -27,7 +27,6 @@ public class AccountActivity extends AppCompatActivity {
     private EditText editTextEmail;
     private EditText editTextPassword;
     private EditText editTextConfirmPassword;
-    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,8 +55,9 @@ public class AccountActivity extends AppCompatActivity {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
                 String confirmPass = editTextConfirmPassword.getText().toString();
-                if (!validateValues(email, password, confirmPass)) {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                List<String> errors = validateValues(email, password, confirmPass);
+                if (!errors.isEmpty()) {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
                     SharedPreferences data = getSharedPreferences(USER_DATA, Context.MODE_PRIVATE);
@@ -73,17 +73,18 @@ public class AccountActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validateValues(String email, String password, String confirmPass) {
-        errorList.clear();
+    private List<String> validateValues(String email, String password, String confirmPass) {
+        List<String> errorText = new ArrayList<>();
+        errorText.clear();
         if (TextUtils.isEmpty(email)) {
-            errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
+            errorText.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
         }
         if (TextUtils.isEmpty(password)) {
-            errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
+            errorText.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
         } else if (!TextUtils.equals(password, confirmPass)) {
-            errorList.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
+            errorText.add(getString(R.string.form_confirm_password) + getString(R.string.validation_notEqual));
         }
-        return errorList.size() == 0;
+        return errorText;
     }
 
     private void signUp(String email, String password) {

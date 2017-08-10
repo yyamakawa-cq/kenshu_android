@@ -49,7 +49,6 @@ public class EditBookFragment extends Fragment {
     private EditText editTextName;
     private EditText editTextPrice;
     private TextView textViewPurchaseDate;
-    private List<String> errorList = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -108,8 +107,9 @@ public class EditBookFragment extends Fragment {
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-                if (!validateValues(name, price, date)) {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                List<String> errors = validateValues(name, price, date);
+                if (!errors.isEmpty()) {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getActivity().getFragmentManager(), "errorDialog");
                 } else {
                     String imageData = ImageConverterUtil.convertToString(imageViewUpload);
@@ -158,18 +158,19 @@ public class EditBookFragment extends Fragment {
         return editBookFragment;
     }
 
-    private boolean validateValues(String name, String price, String date) {
-        errorList.clear();
+    private List<String> validateValues(String name, String price, String date) {
+        List<String> errorText = new ArrayList<>();
+        errorText.clear();
         if (TextUtils.isEmpty(name)) {
-            errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
+            errorText.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
         }
         if (TextUtils.isEmpty(price)) {
-            errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
+            errorText.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
         }
         if (TextUtils.isEmpty(date)) {
-            errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
+            errorText.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
         }
-        return errorList.size() == 0;
+        return errorText;
     }
 
     private void editBook(Integer bookId, String name, Integer price, String purchaseDate, String imageData) {

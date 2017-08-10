@@ -27,7 +27,6 @@ public class LoginActivity extends AppCompatActivity {
     private static final String REQUEST_TOKEN = "request_token";
     private EditText editTextEmail;
     private EditText editTextPassword;
-    private List<String> errorList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +42,9 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String email = editTextEmail.getText().toString();
                 String password = editTextPassword.getText().toString();
-                if (!validateValues(email, password)) {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                List<String> errors = validateValues(email, password);
+                if (!errors.isEmpty()) {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getFragmentManager(), "errorDialog");
                 } else {
                     login(email, password);
@@ -62,15 +62,16 @@ public class LoginActivity extends AppCompatActivity {
         AppLaunchChecker.onActivityCreate(this);
     }
 
-    private boolean validateValues(String email, String password) {
-        errorList.clear();
+    private List<String> validateValues(String email, String password) {
+        List<String> errorText = new ArrayList<>();
+        errorText.clear();
         if (TextUtils.isEmpty(email)) {
-            errorList.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
+            errorText.add(getString(R.string.form_email) + getString(R.string.validation_isEmpty));
         }
         if (TextUtils.isEmpty(password)) {
-            errorList.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
+            errorText.add(getString(R.string.form_password) + getString(R.string.validation_isEmpty));
         }
-        return errorList.size() == 0;
+        return errorText;
     }
 
     private void login(String email, final String password){
