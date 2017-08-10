@@ -5,6 +5,7 @@
     <string name="title_account">アカウント設定</string>
     <string name="title_edit_book">書籍編集</string>
     <string name="title_add_book">書籍追加</string>
+    <string name="title_error">エラー</string>
     <string name="menu_add">追加</string>
     <string name="menu_close">閉じる</string>
     <string name="menu_save">保存</string>
@@ -12,16 +13,17 @@
     <string name="button_upload">画像添付</string>
     <string name="button_login">ログイン</string>
     <string name="button_ok">OK</string>
+    <string name="button_load">もっと読み込む</string>
     <string name="form_name">書籍名</string>
     <string name="form_price">金額</string>
     <string name="form_purchase_date">購入日</string>
     <string name="form_email">メールアドレス</string>
     <string name="form_password">パスワード</string>
     <string name="form_confirm_password">確認パスワード</string>
-    <string name="validation_error">エラー</string>
     <string name="validation_isEmpty">が空です</string>
     <string name="validation_notEqual">が違います</string>
     <string name="sample_book_name">書籍名</string>
     <string name="sample_book_price">¥1000</string>
     <string name="sample_book_purchase_date">2017/01/01</string>
+    <string name="api_error">APIリクエストエラー</string>
 </resources>

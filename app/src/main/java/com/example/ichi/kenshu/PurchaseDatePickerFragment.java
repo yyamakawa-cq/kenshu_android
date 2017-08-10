@@ -7,6 +7,8 @@ import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class PurchaseDatePickerFragment extends DialogFragment implements DatePickerDialog.OnDateSetListener{
 
     @Override
@@ -22,6 +24,8 @@ public class PurchaseDatePickerFragment extends DialogFragment implements DatePi
 
     public void onDateSet(android.widget.DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         TextView textView = getActivity().findViewById(R.id.textView_purchaseDate);
-        textView.setText(String.valueOf(year) + "/" + String.valueOf(monthOfYear) + "/" + String.valueOf(dayOfMonth));
+        String month = String.format(Locale.JAPAN,"%02d",(monthOfYear + 1));
+        String day = String.format(Locale.JAPAN,"%02d",dayOfMonth);
+        textView.setText(String.valueOf(year) + "/" + month + "/" + day);
     }
 }

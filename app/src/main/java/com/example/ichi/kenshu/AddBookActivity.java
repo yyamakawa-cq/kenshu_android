@@ -2,12 +2,14 @@ package com.example.ichi.kenshu;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -20,8 +22,13 @@ import android.widget.TextView;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AddBookActivity extends AppCompatActivity {
     private ImageView imageViewUpload;
@@ -72,23 +79,18 @@ public class AddBookActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.menu_save:
-                List<String> errorList = new ArrayList<>();
                 String name = editTextName.getText().toString();
                 String price = editTextPrice.getText().toString();
                 String date = textViewPurchaseDate.getText().toString();
-
-                if (TextUtils.isEmpty(name)) {
-                    errorList.add(getString(R.string.form_name) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(price)) {
-                    errorList.add(getString(R.string.form_price) + getString(R.string.validation_isEmpty));
-                }
-                if (TextUtils.isEmpty(date)) {
-                    errorList.add(getString(R.string.form_purchase_date) + getString(R.string.validation_isEmpty));
-                }
-                if (errorList.size() > 0 ) {
-                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errorList);
+                List<String> errors = FormValidationUtil.validateBookValues(name, price, date);
+                if (!errors.isEmpty()) {
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(errors);
                     errorDialog.show(getFragmentManager(), "errorDialog");
+                } else {
+                    String imageData = ImageConverterUtil.convertToString(imageViewUpload);
+                    String purchaseDate = date.replaceAll("/","-");
+                    int intPrice = Integer.valueOf(price);
+                    addBook(name, intPrice, purchaseDate,imageData);
                 }
                 return true;
             default:
@@ -118,5 +120,37 @@ public class AddBookActivity extends AppCompatActivity {
                 imageViewUpload.setImageBitmap(bitmap);
             }
         }
+    }
+
+    private void addBook(String name, int price, String purchaseDate, String imageData) {
+        SharedPreferences data = getSharedPreferences(SharedPreferencesConstants.USER_DATA, Context.MODE_PRIVATE);
+        String requestToken = data.getString(SharedPreferencesConstants.REQUEST_TOKEN,"none");
+        int userId = data.getInt(SharedPreferencesConstants.USER_ID, 0);
+        Book addBook = new Book(name, price, purchaseDate, imageData, userId);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(ApiInterface.END_POINT)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        ApiInterface service = retrofit.create(ApiInterface.class);
+        service.addBook(requestToken,addBook).enqueue(new Callback<Book>() {
+            @Override
+            public void onResponse(Call<Book> call, Response<Book> response) {
+                if (response.isSuccessful()) {
+                    Log.d("api", "success");
+                    finish();
+                } else {
+                    Log.d("api","error");
+                    ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(response.code());
+                    errorDialog.show(getFragmentManager(), "errorDialog");
+                }
+            }
+            @Override
+            public void onFailure(Call<Book> call, Throwable t) {
+                Log.d("api", "fail");
+                ErrorDialogFragment errorDialog = ErrorDialogFragment.newInstance(-1);
+                errorDialog.show(getFragmentManager(), "errorDialog");
+            }
+        });
     }
 }

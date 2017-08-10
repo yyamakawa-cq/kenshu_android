@@ -1,49 +1,108 @@
 package com.example.ichi.kenshu;
 
-import android.graphics.Bitmap;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-public class Book {
-    private Bitmap imageView = null;
-    private String title = null;
-    private String price = null;
-    private String purchaseDate = null;
+import java.io.Serializable;
 
-    public Book(Bitmap bookImage, String bookTitle, String bookPrice, String bookPurchaseDate) {
-        imageView = bookImage;
-        title = bookTitle;
-        price = bookPrice;
-        purchaseDate = bookPurchaseDate;
+public class Book implements Serializable {
+
+    @Expose
+    @SerializedName("name")
+    private String name;
+
+    @Expose
+    @SerializedName("price")
+    private int price;
+
+    @Expose
+    @SerializedName("purchase_date")
+    private String purchaseDate;
+
+    @Expose
+    @SerializedName("image_data")
+    private String imageData;
+
+    @Expose
+    @SerializedName("image_url")
+    private String imageUrl;
+
+    @Expose
+    @SerializedName("user_id")
+    private int userId;
+
+    @Expose
+    @SerializedName("id")
+    private int bookId;
+
+    public Book(String name, int price, String purchaseDate, String imageData,int id) {
+        this.name = name;
+        this.price = price;
+        this.purchaseDate = purchaseDate;
+        this.imageData = imageData;
+        this.userId = id;
     }
 
-    public void setImageView(Bitmap bookImage) {
-        imageView = bookImage;
+    public Book(String name, int price, String purchaseDate, String imageData) {
+        this.name = name;
+        this.price = price;
+        this.purchaseDate = purchaseDate;
+        this.imageData = imageData;
     }
 
-    public void setTitle(String bookTitle) {
-        title = bookTitle;
+    public String getName() {
+        return name;
     }
 
-    public void setPrice(String bookPrice) {
-        price = bookPrice;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setPurchaseDate(String bookPurchaseDate) {
-        purchaseDate = bookPurchaseDate;
-    }
-
-    public Bitmap getImageView() {
-        return imageView;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getPrice(){
+    public int getPrice() {
         return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getPurchaseDate() {
         return purchaseDate;
+    }
+
+    public void setPurchaseDate(String purchaseDate) {
+        this.purchaseDate = purchaseDate;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageData() {
+        return imageData;
+    }
+
+    public void setImageData(String imageData) {
+        this.imageData = imageData;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 }
